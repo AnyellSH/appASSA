@@ -5,6 +5,7 @@
  */
 package Beans;
 
+
 import DAO.SNMPExceptions;
 import Model.Producto;
 import javax.inject.Named;

@@ -107,5 +107,9 @@ public class Producto {
         this.imagen = imagen;
     }
 
+    String getDescripcion() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
    
 }
