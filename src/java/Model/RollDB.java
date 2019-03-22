@@ -117,8 +117,33 @@ public class RollDB {
 
     }
 
+    /*GUARDAR EN LA TABLA*/
+    public void Guardar(Roll roll) throws SNMPExceptions, SQLException {
+
+        LinkedList<Roll> otraLista = new LinkedList<Roll>();
+        String insert = "";
+        try {
+
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            insert = "INSER INTO ROLL(Id, Estado, Descripcion, Id_Usu_Registra, Fecha_Registra, Id_Usu_Edita,Fecha_Edita)"
+                    +"VALUES ("+roll.getId()+","+roll.getEstado()+",'"+roll.getDescripcion()+"')";
+
+            accesoDatos.ejecutaSQLRetornaRS(insert);
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
+
+        }
+    }
+
     /*ACTUALIZAR UNO DE LA TABLA ID*/
-    public LinkedList<Roll> Actualizar(int idp,int estp) throws SNMPExceptions, SQLException {
+    public void Actualizar(Roll roll) throws SNMPExceptions, SQLException {
 
         LinkedList<Roll> otraLista = new LinkedList<Roll>();
         String select = "";
@@ -126,27 +151,10 @@ public class RollDB {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            select = "Update Roll set Estado = " + estp + "where id = " + idp;
+            select = "Update Roll set Estado = " + roll.getEstado() + "where id = " + roll.getId();
 
-            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            accesoDatos.ejecutaSQLRetornaRS(select);
 
-            while (rsPA.next()) {
-
-                int id = rsPA.getInt("Id");
-                String decrip = rsPA.getString("Descripcion");
-                int est = rsPA.getInt("Estado");
-
-                int idUsuRegistra = rsPA.getInt("Id_Usu_Registra");
-                Date feRegistra = rsPA.getDate("Fecha_Registra");
-                int idUsuEdita = rsPA.getInt("Id_Usu_Edita");
-                Date feEdita = rsPA.getDate("Fecha_Edita");
-
-                Roll Obj = new Roll(id, decrip, est, idUsuRegistra, feRegistra, idUsuEdita, feEdita);
-
-                otraLista.add(Obj);
-
-            }
-            rsPA.close();
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage(), e.getErrorCode());
@@ -156,11 +164,10 @@ public class RollDB {
         } finally {
 
         }
-        return otraLista;
     }
 
     /*DESACTIVAR UNO DE LA TABLA POR ID*/
-    public LinkedList<Telefono> Desactivar(int idp, int estp) throws SNMPExceptions, SQLException {
+    public void Desactivar(Roll roll) throws SNMPExceptions, SQLException {
 
         LinkedList<Telefono> otraLista = new LinkedList<Telefono>();
         String select = "";
@@ -168,27 +175,9 @@ public class RollDB {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            select = "Update Telefono set estado=" + estp + " where id= " + idp;
+            select = "Update Telefono set estado=" + roll.getEstado() + " where id= " + roll.getId();
+            accesoDatos.ejecutaSQL(select);
 
-            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
-
-            while (rsPA.next()) {
-
-                int id = rsPA.getInt("Id");
-                String num = rsPA.getString("Numero");
-                int est = rsPA.getInt("Estado");
-                int idtpTel = rsPA.getInt("ID_TIPO_TELEFONO");
-
-                int idUsuRegistra = rsPA.getInt("Id_Usu_Registra");
-                Date feRegistra = rsPA.getDate("Fecha_Registra");
-                int idUsuEdita = rsPA.getInt("Id_Usu_Edita");
-                Date feEdita = rsPA.getDate("Fecha_Edita");
-
-                Telefono Obj = new Telefono(id, est, num, idtpTel, idUsuRegistra, feRegistra, idUsuEdita, feEdita);
-
-                otraLista.add(Obj);
-            }
-            rsPA.close();
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage(), e.getErrorCode());
@@ -198,7 +187,5 @@ public class RollDB {
         } finally {
 
         }
-        return otraLista;
     }
-
 }
