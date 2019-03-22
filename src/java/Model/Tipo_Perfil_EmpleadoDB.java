@@ -131,52 +131,37 @@ public class Tipo_Perfil_EmpleadoDB {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            select = "Update Tipo_Perfil_Empleado set Descripcion='" + Obj.getDescripcion() + "' where id= " + Obj.getId();
+            select = "Update Tipo_Perfil_Empleado set Descripcion='" + Obj.getDescripcion() 
+                    +"',Set Id_Usu_Edita ="+Obj.getIdUsuEdita()
+                    +",Set Fecha_Edita ="+Obj.getFeEdita()
+                    + "where id= " + Obj.getId();
 
             accesoDatos.ejecutaSQL(select);
 
-            } catch (SQLException e) {
+        } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage(), e.getErrorCode());
         } catch (Exception e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage());
         } finally {
-
+            accesoDatos.cerrarConexion();
         }
     }
 
     /*DESACTIVAR UNO DE LA TABLA POR ID*/
-    public LinkedList<Tipo_Perfil_Empleado> Desactivar(int idp, int estp) throws SNMPExceptions, SQLException {
+    public void Desactivar(Tipo_Perfil_Empleado obj) throws SNMPExceptions, SQLException {
 
-        LinkedList<Tipo_Perfil_Empleado> otraLista = new LinkedList<Tipo_Perfil_Empleado>();
         String select = "";
         try {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            select = "Update Tipo_Perfil_Empleado set estado=" + estp + " where id= " + idp;
+            select = "Update Tipo_Perfil_Empleado set estado=" + obj.getEstado()
+                    + " where id= " + obj.getId();
+            
+            accesoDatos.ejecutaSQL(select);
 
-            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
-
-            while (rsPA.next()) {
-
-                int id = rsPA.getInt("Id");
-                String desc = rsPA.getString("Descripcion");
-                int est = rsPA.getInt("Estado");
-                int idper = rsPA.getInt("ID_PERSONA");
-                int idPerfEmpleado = rsPA.getInt("ID_PERFIL_EMPLEADO");
-                int idUsuRegistra = rsPA.getInt("Id_Usu_Registra");
-                Date feRegistra = rsPA.getDate("Fecha_Registra");
-                int idUsuEdita = rsPA.getInt("Id_Usu_Edita");
-                Date feEdita = rsPA.getDate("Fecha_Edita");
-
-                Tipo_Perfil_Empleado Obj = new Tipo_Perfil_Empleado(id, desc, est, idper, idPerfEmpleado, idUsuRegistra, feRegistra, idUsuEdita, feEdita);
-
-                otraLista.add(Obj);
-
-            }
-            rsPA.close();
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage(), e.getErrorCode());
@@ -186,7 +171,6 @@ public class Tipo_Perfil_EmpleadoDB {
         } finally {
 
         }
-        return otraLista;
     }
 
 }

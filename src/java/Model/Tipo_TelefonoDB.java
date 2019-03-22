@@ -105,6 +105,31 @@ public class Tipo_TelefonoDB {
         return otraLista;
     }
 
+    /*GUARDAR EN LA TABLA*/
+    public void Guardar(Tipo_Telefono Objp) throws SNMPExceptions, SQLException {
+
+        LinkedList<Roll> otraLista = new LinkedList<Roll>();
+        String insert = "";
+        try {
+
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            insert = "INSER INTO ROLL(Id, Estado, Descripcion )"
+                    + "VALUES (" + Objp.getId() + "," + Objp.getEstado() + ",'" + Objp.getDescripcion() + "')";
+
+            accesoDatos.ejecutaSQLRetornaRS(insert);
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
+            accesoDatos.cerrarConexion();
+        }
+    }
+
     /*ACTUALIZAR UNO DE LA TABLA ID*/
     public void Actualizar(Tipo_Telefono tipo) throws SNMPExceptions, SQLException {
 
@@ -124,7 +149,7 @@ public class Tipo_TelefonoDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage());
         } finally {
-
+            accesoDatos.cerrarConexion();
         }
     }
 
