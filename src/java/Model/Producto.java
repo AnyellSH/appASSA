@@ -35,6 +35,10 @@ public class Producto {
         super();
     }
 
+    Producto(int idPro, String nombre, float precio, int cantidadE, int cantidadM, String descripcion, String fechaI, String fechaM, int usuarioI, int usuarioM, int idCat, String img) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getIdProducto() {
         return idProducto;
     }

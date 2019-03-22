@@ -8,6 +8,7 @@ package Beans;
 
 import DAO.SNMPExceptions;
 import Model.Producto;
+import Model.ProductoDB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
