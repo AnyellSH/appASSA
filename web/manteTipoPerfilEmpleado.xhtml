@@ -69,7 +69,7 @@ and open the template in the editor.
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs12 ">
                 <div class="title_sec">
-                    <h1>Roll de Usuario</h1>
+                    <h1>Tipo Perfil Empleado</h1>
 
                 </div>
 
@@ -89,7 +89,12 @@ and open the template in the editor.
                         <h:outputLabel  style="margin-left: 4%; margin-bottom: 2%" value="Inactivo: "></h:outputLabel>
                         <h:selectBooleanCheckbox></h:selectBooleanCheckbox>
                         <br></br>
-                       
+                       <h:outputLabel value="Codigo Persona: "></h:outputLabel>
+                        <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
+                        <br></br>
+                        <h:outputLabel value="Codigo Perfil Empleado: "></h:outputLabel>
+                        <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
+                        <br></br>
                         <h:outputLabel value="Codigo de Usuario registradror: "></h:outputLabel>
                         <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
                         <br></br>
@@ -104,9 +109,7 @@ and open the template in the editor.
                             <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
                             <br></br>
                             <br></br>
-                      
-                            <h:commandButton value="CREAR ROLL DE USUARIO" ></h:commandButton>
-                           
+                            <h:commandButton value="CREAR TIPO PERFIL EMPLEADO" ></h:commandButton>
                             </div>
                     <br></br>
                     <br></br>
@@ -138,15 +141,27 @@ and open the template in the editor.
                             </f:facet>
                                 <h:outputText value=""></h:outputText>
                             </h:column>
+                                    <h:column>
+                            <f:facet name="header">
+                            <h:outputText value="Codigo Persona"></h:outputText>
+                            </f:facet>
+                                <h:outputText value=""></h:outputText>
+                            </h:column>
+                                    <h:column>
+                            <f:facet name="header">
+                            <h:outputText value="Codigo Empleado"></h:outputText>
+                            </f:facet>
+                                <h:outputText value=""></h:outputText>
+                            </h:column>
                             <h:column>
                             <f:facet name="header">
-                            <h:outputText value="Editar Roll"></h:outputText>
+                            <h:outputText value="Editar Tipo Perfil Empleado"></h:outputText>
                             </f:facet>
                                 <h:commandButton value="Editar" ></h:commandButton>
                             </h:column>
                             <h:column>
                             <f:facet name="header">
-                            <h:outputText value="Eliminar Roll"></h:outputText>
+                            <h:outputText value="Eliminar Tipo Perfil Empleado"></h:outputText>
                             </f:facet>
                                 <h:commandButton value="Eliminar" ></h:commandButton>
                             </h:column>
