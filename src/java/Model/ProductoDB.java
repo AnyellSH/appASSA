@@ -147,7 +147,32 @@ public class ProductoDB {
     }
     
     
-    public void ActualizarProducto(Producto p){
-        return;
-    }
+    public void ActualizarProducto(Producto productoP) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+           //Se obtienen los valores del objeto Cliente
+           Producto p = new Producto();
+           p = productoP;
+           
+           //Datos de CLiente         
+                int idPro = p.getIdProducto();
+                String nombre = p.getNombreProducto();
+                float precio = p.getPrecio();
+                
+                int cantidadM = p.getCantidadMinima();
+                String descripcion = p.getDescripcion();
+                String fechaI = p.getFechaRegistro();
+                String fechaM = p.getFechaModificacion();
+                int usuarioI = p.getUsuarioRegistra();
+                int usuarioM = p.getUsuarioModifica();
+               
+                String im = p.getImagen();
+           //Se crea la sentencia de actualización
+           String update = 
+                   "UPDATE Producto SET Nombre = '" + nombre + "', Precio='"+precio+
+                  " CantidadMinima='"+cantidadM+"', Descripcion='"+descripcion+
+                   "', FechaRegistro='"+fechaI+"', fechaModificacion='"+fechaM+"',"
+                   + "UsuarioRegistro='"+usuarioI+"', UsuarioModifico='"+usuarioM+"', Imagen='"+im+"'where IdProducto = "+idPro;
+           //Se ejecuta la sentencia SQL
+           accesoDatos.ejecutaSQL(update);
+               
+     }
 }
