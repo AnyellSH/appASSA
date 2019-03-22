@@ -127,7 +127,7 @@ public class RollDB {
             AccesoDatos accesoDatos = new AccesoDatos();
 
             insert = "INSER INTO ROLL(Id, Estado, Descripcion, Id_Usu_Registra, Fecha_Registra, Id_Usu_Edita,Fecha_Edita)"
-                    +"VALUES ("+roll.getId()+","+roll.getEstado()+",'"+roll.getDescripcion()+"')";
+                    + "VALUES (" + roll.getId() + "," + roll.getEstado() + ",'" + roll.getDescripcion() + "')";
 
             accesoDatos.ejecutaSQLRetornaRS(insert);
 
@@ -138,7 +138,7 @@ public class RollDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage());
         } finally {
-
+            accesoDatos.cerrarConexion();
         }
     }
 
@@ -162,7 +162,7 @@ public class RollDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage());
         } finally {
-
+            accesoDatos.cerrarConexion();
         }
     }
 
@@ -185,7 +185,7 @@ public class RollDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage());
         } finally {
-
+            accesoDatos.cerrarConexion();
         }
     }
 }
