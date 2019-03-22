@@ -16,133 +16,138 @@ import javax.naming.NamingException;
  *
  * @author Anyel
  */
-class ProductoDB {
-     private AccesoDatos accesoDatos = new AccesoDatos();
+public class ProductoDB {
+
+    private AccesoDatos accesoDatos = new AccesoDatos();
     LinkedList<Producto> listaProductos = new LinkedList<Producto>();
-    
-     public void insertaProducto(Producto productoP) throws SNMPExceptions, SQLException {
-    
+
+    public void insertaProducto(Producto productoP) throws SNMPExceptions, SQLException {
+
         String strSQL = "";
         try {
             //Se obtienen los valores del objeto Empresa
             Producto prod = new Producto();
             prod = productoP;
-            strSQL = 
-                    "INSERT INTO Producto ( Id,Nombre,Precio,Cantidad_Min_Compra,Precio,"
-                    + "Fotograbia,Estado,Id_Usu_Registra, Fecha_Registra,Id_Usu_Edita,Fecha_Edita) VALUES ('" +prod.getNombreProducto()
-                    + "','" +prod.getPrecio()+"','" +prod.getCantidadMinima()+"','" 
-                    +"','" +prod.getFechaRegistro()+"','" +prod.getFechaModificacion()+"','" +prod.getUsuarioRegistra()+"','" +prod.getUsuarioModifica()+
-                    "','" +prod.getImagen()+"')";
+            strSQL
+                    = "INSERT INTO Producto ( Id,Nombre,Precio,Cantidad_Min_Compra,Precio,"
+                    + "Fotograbia,Estado,Id_Usu_Registra, Fecha_Registra,Id_Usu_Edita,Fecha_Edita) VALUES ('" + prod.getNombreProducto()
+                    + "','" + prod.getPrecio() + "','" + prod.getCantidadMinima() + "','"
+                    + "','" + prod.getFechaRegistro() + "','" + prod.getFechaModificacion() + "','" + prod.getUsuarioRegistra() + "','" + prod.getUsuarioModifica()
+                    + "','" + prod.getImagen() + "')";
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL/*, sqlBitacora*/);
-        
+
         } catch (SQLException e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
-                                    e.getMessage(), e.getErrorCode());
-        }catch (Exception e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
-                                    e.getMessage());
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
         } finally {
-        
+
         }
     }
 
+    public LinkedList<Producto> consultarProductos() throws SNMPExceptions, SQLException {
+        String select = "";
 
- public  LinkedList<Producto> consultarProductos() throws SNMPExceptions, SQLException {
-          String select = "";
-          
-          LinkedList<Producto> listaProduct= new LinkedList<Producto>();
-          
-          try {
-             //open();
-              //Se instancia la clase de acceso a datos
-              AccesoDatos accesoDatos = new AccesoDatos();  
+        LinkedList<Producto> listaProduct = new LinkedList<Producto>();
 
-              //Se crea la sentencia de búsqueda
-              select = 
-                      "SELECT Id,Nombre,Precio,Cantidad_Min_Compra,Precio,"
+        try {
+            //open();
+            //Se instancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de búsqueda
+            select
+                    = "SELECT Id,Nombre,Precio,Cantidad_Min_Compra,Precio,"
                     + "Fotograbia,Estado,Id_Usu_Registra, Fecha_Registra,Id_Usu_Edita,Fecha_Edita";
-             
-              //Se ejecuta la sentencia SQL
-              ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
-              //Se llena el arryaList con los catálogos   
-              while (rsPA.next()) {
+
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los catálogos   
+            while (rsPA.next()) {
 
                 int idPro = rsPA.getInt("IdProducto");
                 String nombre = rsPA.getString("Nombre");
                 float precio = rsPA.getFloat("Precio");
-              
+
                 int cantidadM = rsPA.getInt("CantidadMinima");
-              
+
                 String fechaI = rsPA.getString("FechaRegistra");
                 String fechaM = rsPA.getString("FechaModificacion");
                 int usuarioI = rsPA.getInt("UsuarioRegistra");
                 int usuarioM = rsPA.getInt("UsuarioModifico");
-             
+
                 String img = rsPA.getString("Imagen");
-                
-                Producto pro = new Producto(idPro, nombre, precio, cantidadM,  fechaI, fechaM, usuarioI, usuarioM,img);
+
+                Producto pro = new Producto(idPro, nombre, precio, cantidadM, fechaI, fechaM, usuarioI, usuarioM, img);
                 listaProduct.add(pro);
-              }
-              rsPA.close();
+            }
+            rsPA.close();
 
-          } catch (SQLException e) {
-              throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
-                                      e.getMessage(), e.getErrorCode());
-          }catch (Exception e) {
-              throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
-                                      e.getMessage());
-          } finally {
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
 
-          }
-         
-          return listaProduct;
-      }
- 
-  public LinkedList<Producto> consultaUnProducto(int idProduct) throws SNMPExceptions, SQLException {
+        }
+
+        return listaProduct;
+    }
+
+    public LinkedList<Producto> consultaUnProducto(int idProduct) throws SNMPExceptions, SQLException {
 
         String strSQL = "";
         LinkedList<Producto> unPro = new LinkedList<Producto>();
         try {
 
-            strSQL = 
-                    "Select * from Producto where Id ="+idProduct;
+            strSQL
+                    = "Select * from Producto where Id =" + idProduct;
             //Se ejecuta la sentencia SQL
             ResultSet rsEM = accesoDatos.ejecutaSQLRetornaRS(strSQL);
             while (rsEM.next()) {
                 int idPro = rsEM.getInt("IdProducto");
                 String nombre = rsEM.getString("Nombre");
                 float precio = rsEM.getFloat("Precio");
-              
+
                 int cantidadM = rsEM.getInt("CantidadMinima");
-                
+
                 String fechaI = rsEM.getString("FechaRegistra");
                 String fechaM = rsEM.getString("fechaModificacion");
                 int usuarioI = rsEM.getInt("UsuarioRegistra");
                 int usuarioM = rsEM.getInt("UsuarioModifico");
-           
+
                 String img = rsEM.getString("Imagen");
-                
-                Producto pro = new Producto(idPro, nombre, precio, cantidadM, fechaI, fechaM, usuarioI, usuarioM,img);
+
+                Producto pro = new Producto(idPro, nombre, precio, cantidadM, fechaI, fechaM, usuarioI, usuarioM, img);
                 unPro.add(pro);
             }
             rsEM.close();
-            
+
         } catch (SQLException e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
-                                    e.getMessage(), e.getErrorCode());
-        }catch (Exception e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, 
-                                    e.getMessage());
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
         } finally {
         }
         return unPro;
     }
+
     public void eliminarProducto(int idProduct) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
-        String delete = 
-            "DELETE FROM Producto Where IdProducto = "+idProduct;
-            accesoDatos.ejecutaSQL(delete);
-        
+        String delete
+                = "DELETE FROM Producto Where IdProducto = " + idProduct;
+        accesoDatos.ejecutaSQL(delete);
+
     }
     
+    
+    public void ActualizarProducto(Producto p){
+        return;
+    }
 }
