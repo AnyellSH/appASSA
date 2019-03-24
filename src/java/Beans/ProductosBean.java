@@ -8,6 +8,7 @@ package Beans;
 import DAO.SNMPExceptions;
 import Model.ProductoDB;
 import Model.Producto;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -194,7 +195,7 @@ public class ProductosBean implements Serializable {
      *
      * }
      */
-//    public void asignaURL() {
+//   public void asignaURL() {
 //
 //        String i = this.getFile().getSubmittedFileName();
 //        if (this.getImagen().equals("")) {
@@ -257,5 +258,11 @@ public class ProductosBean implements Serializable {
 
         this.limpia();
         this.getListaTablaProductos();
+    }
+     public void cierraSesion() throws IOException{
+        
+        final ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.invalidateSession();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
 }

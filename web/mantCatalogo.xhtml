@@ -49,7 +49,7 @@ and open the template in the editor.
 						<div id="navbar">
 							<ul>
                                                             <h:form>
-                                                                    <li><h:commandLink value="Cerrar Sesion" action="#{clienteBean.cierraSesion()}"></h:commandLink></li>
+                                                                <li><h:commandLink value="Cerrar Sesion" action="#{productosBean.cierraSesion()}"></h:commandLink></li>
                                                                 </h:form>
 							</ul>
 						</div>	
@@ -84,28 +84,28 @@ and open the template in the editor.
                             <br></br>
                             <br></br>
                             <h:outputLabel value="Codigo producto: "></h:outputLabel>
-                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
+                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{productosBean.idProducto}"></h:inputText>
                             <br></br>
                             <h:outputLabel value="Nombre producto: "></h:outputLabel>
-                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
+                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{productosBean.nombreProducto}"></h:inputText>
                             <br></br>
                             <h:outputLabel value="Cantidad minima de compra: "></h:outputLabel>
-                            <h:inputText style="margin-left: 2%; width: 40%; margin-bottom: 2%" value=""></h:inputText>
+                            <h:inputText style="margin-left: 2%; width: 40%; margin-bottom: 2%" value="#{productosBean.cantidadMinima}"></h:inputText>
                             <br></br>
                                 <h:outputLabel value="Precio: "></h:outputLabel>
-                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
+                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{productosBean.precio}"></h:inputText>
                             <br></br>
                             <h:outputLabel value="Codigo de Usuario registradror: "></h:outputLabel>
-                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
+                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{productosBean.usuarioRegistro}"></h:inputText>
                             <br></br>
                              <h:outputLabel value="Codigo de Usuario modificador: "></h:outputLabel>
-                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
+                             <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{productosBean.usuarioModifica}"></h:inputText>
                             <br></br>
                             <h:outputLabel value="Fecha de Registro: "></h:outputLabel>
-                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
+                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""#{productosBean.fechaRegistro}></h:inputText>
                             <br></br>
                             <h:outputLabel value="Fecha de Modificacion: "></h:outputLabel>
-                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
+                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{productosBean.fechaModificacion}"></h:inputText>
                             <br></br>
                             <h:outputLabel value="Estado: "></h:outputLabel>
                         <h:outputLabel style="margin-left: 4%; margin-bottom: 2%" value="Activo: "></h:outputLabel>
@@ -114,62 +114,62 @@ and open the template in the editor.
                         <h:selectBooleanCheckbox></h:selectBooleanCheckbox>
                             <br></br>
                             <h:outputLabel value="Ruta Imagen: "></h:outputLabel>
-                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText> 
+                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{productosBean.imagen}"></h:inputText> 
                             <br></br>
-                            <h:inputFile value=""></h:inputFile>
-                            <h:commandButton value="Agregar Archivo" ></h:commandButton>
-                            <h:outputLabel value=""></h:outputLabel>
+                            <h:inputFile value="#{productosBean.file}"></h:inputFile>
+                            <h:commandButton value="Agregar Archivo" action="#{productosBean.asignarURL()}"></h:commandButton>
+                            <h:outputLabel value="#{productosBean.rutaRecibida}"></h:outputLabel>
                             <br></br>
-                            <h:commandButton value="Actualizar" ></h:commandButton>
-                            <h:commandButton value="Agregar"></h:commandButton>
+                           <h:commandButton value="Actualizar" action="#{productosBean.actualizaDatos()}"></h:commandButton>
+                            <h:commandButton value="CREAR" action="#{productosBean.agregarProducto()}"></h:commandButton>
                             <br></br>
                             <br></br>
                             <br></br>
-                            <h:commandButton value="CREAR PRODUCTO" ></h:commandButton>
+                            
                             </div>
                             <br></br>
                             <br></br>
                             <div class="datagrid">
-                                <h:dataTable value="" var="producc" style="text-align: center">
+                                <h:dataTable value="#{productosBean.listaTablaProductos}" var="producc" style="text-align: center">
                             <h:column>
                                 <f:facet name="header">
                                 <h:outputText value="Numero Producto"></h:outputText>
                                 </f:facet>
-                                <h:outputText value=""></h:outputText>
+                                <h:outputText value="#{producc.idProducto}"></h:outputText>
                             </h:column>
                                 
                             <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Nombre Producto"></h:outputText>
                             </f:facet>
-                                <h:outputText value=""></h:outputText>
+                                <h:outputText value="#{producc.nombreProducto}"></h:outputText>
                             </h:column>
                                 
                             <h:column>
                             <f:facet name="header">
                             <h:outputText value="Cantidad minima de compra"></h:outputText>
                             </f:facet>
-                                <h:outputText value=""></h:outputText>
+                                <h:outputText value="#{producc.cantidadMinima}"></h:outputText>
                             </h:column>
                                 
                             <h:column>
                             <f:facet name="header">
                             <h:outputText value="Imagen Producto"></h:outputText>
                             </f:facet>
-                                <h:graphicImage url="" style="width: 40%; height: 40%"></h:graphicImage>
+                                <h:graphicImage url="#{producc.imagen}" style="width: 40%; height: 40%"></h:graphicImage>
                             </h:column>
                                 
                             <h:column>
                             <f:facet name="header">
-                            <h:outputText value="Editar Producto"></h:outputText>
+                            <h:outputText value="Editar Producto" ></h:outputText>
                             </f:facet>
-                                <h:commandButton value="Editar" ></h:commandButton>
+                                <h:commandButton value="Editar" action="#{productosBean.asignaValores(producc)}"></h:commandButton>
                             </h:column>
                             <h:column>
                             <f:facet name="header">
                             <h:outputText value="Eliminar Producto"></h:outputText>
                             </f:facet>
-                                <h:commandButton value="Eliminar" ></h:commandButton>
+                                <h:commandButton value="Eliminar" action="#{productosBean.eliminarProducto(producc)}" ></h:commandButton>
                             </h:column>
                         </h:dataTable>
                            </div> 
