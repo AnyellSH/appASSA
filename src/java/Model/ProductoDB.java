@@ -18,24 +18,26 @@ import javax.naming.NamingException;
  */
 public class ProductoDB {
 
-    private AccesoDatos accesoDatos = new AccesoDatos();
-    LinkedList<Producto> listaProductos = new LinkedList<Producto>();
+    public AccesoDatos accesoDatos = new AccesoDatos();
+//    LinkedList<Producto> listaProductos = new LinkedList<Producto>();
 
-    public void insertaProducto(Producto productoP) throws SNMPExceptions, SQLException {
+    public void Guardar(Producto obj) throws SNMPExceptions, SQLException {
 
         String strSQL = "";
         try {
-            //Se obtienen los valores del objeto Empresa
-            Producto prod = new Producto();
-            prod = productoP;
-            strSQL
-                    = "INSERT INTO Producto ( Id,Nombre,Precio,Cantidad_Min_Compra,Precio,"
-                    + "Fotograbia,Estado,Id_Usu_Registra, Fecha_Registra,Id_Usu_Edita,Fecha_Edita) VALUES ('" + prod.getNombreProducto()
-                    + "','" + prod.getPrecio() + "','" + prod.getCantidadMinima() + "','"
-                    + "','" + prod.getFechaRegistro() + "','" + prod.getFechaModificacion() + "','" + prod.getUsuarioRegistra() + "','" + prod.getUsuarioModifica()
-                    + "','" + prod.getImagen() + "')";
+            strSQL = "INSERT INTO [dbo].[PRODUCTO]([Id],[Nombre],"
+                    + "[Cantidad_Min_Compra],[Precio],[Fotografia],[Estado],"
+                    + "[Id_Usu_Registra],[Fecha_Registra],[Id_Usu_Edita],[Fecha_Edita])"
+                    + "VALUES(" + obj.getIdProducto() + ",'" + obj.getNombreProducto() + "',"
+                    + obj.getCantidadMinima() + "," + obj.getPrecio() + ",'"
+                    + obj.getImagen() + "'," + obj.getEstado() + ","
+                    + obj.getUsuarioRegistra() + ",'"
+                    + obj.getFechaRegistro() + "',"
+                    + obj.getUsuarioModifica() + ",'"
+                    + obj.getFechaModificacion() + "')";
+
             //Se ejecuta la sentencia SQL
-            accesoDatos.ejecutaSQL(strSQL/*, sqlBitacora*/);
+            accesoDatos.ejecutaSQL(strSQL);
 
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
@@ -48,10 +50,10 @@ public class ProductoDB {
         }
     }
 
-    public LinkedList<Producto> consultarProductos() throws SNMPExceptions, SQLException {
+    public LinkedList<Producto> SeleccionaTodos() throws SNMPExceptions, SQLException {
         String select = "";
 
-        LinkedList<Producto> listaProduct = new LinkedList<Producto>();
+        LinkedList<Producto> lista = new LinkedList<Producto>();
 
         try {
             //open();
@@ -60,29 +62,31 @@ public class ProductoDB {
 
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT Id,Nombre,Precio,Cantidad_Min_Compra,Precio,"
-                    + "Fotograbia,Estado,Id_Usu_Registra, Fecha_Registra,Id_Usu_Edita,Fecha_Edita";
+                    = "SELECT Id,Nombre,Cantidad_Min_Compra,Precio"
+                    + "Fotografia,Estado,"
+                    + "Id_Usu_Registra, Fecha_Registra,"
+                    + "Id_Usu_Edita,Fecha_Edita "
+                    + "from Producto";
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //Se llena el arryaList con los catálogos   
             while (rsPA.next()) {
 
-                int idPro = rsPA.getInt("IdProducto");
+                int idPro = rsPA.getInt("id");
                 String nombre = rsPA.getString("Nombre");
+                int cantidadM = rsPA.getInt("Cantidad_Min_Compra");
                 float precio = rsPA.getFloat("Precio");
+                String img = rsPA.getString("Fotografia");
+                int estado = rsPA.getInt("Estado");
 
-                int cantidadM = rsPA.getInt("CantidadMinima");
+                int usuarioI = rsPA.getInt("Id_Usu_Registra");
+                String fechaI = rsPA.getString("Fecha_Registra");
+                int usuarioM = rsPA.getInt("Id_Usu_Edita");
+                String fechaM = rsPA.getString("Fecha_Edita");
 
-                String fechaI = rsPA.getString("FechaRegistra");
-                String fechaM = rsPA.getString("FechaModificacion");
-                int usuarioI = rsPA.getInt("UsuarioRegistra");
-                int usuarioM = rsPA.getInt("UsuarioModifico");
-
-                String img = rsPA.getString("Imagen");
-
-                Producto pro = new Producto(idPro, nombre, precio, cantidadM, fechaI, fechaM, usuarioI, usuarioM, img);
-                listaProduct.add(pro);
+                Producto pro = new Producto(idPro, nombre, estado, precio, cantidadM, usuarioI, fechaI, usuarioM, fechaM, img);
+                lista.add(pro);
             }
             rsPA.close();
 
@@ -96,37 +100,35 @@ public class ProductoDB {
 
         }
 
-        return listaProduct;
+        return lista;
     }
 
-    public LinkedList<Producto> consultaUnProducto(int idProduct) throws SNMPExceptions, SQLException {
+    public Producto SeleccionarUno(int idProduct) throws SNMPExceptions, SQLException {
 
-        String strSQL = "";
-        LinkedList<Producto> unPro = new LinkedList<Producto>();
+        String select = "";
+        Producto obj = null;
         try {
 
-            strSQL
-                    = "Select * from Producto where Id =" + idProduct;
+            select = "Select * from Producto where Id =" + idProduct;
             //Se ejecuta la sentencia SQL
-            ResultSet rsEM = accesoDatos.ejecutaSQLRetornaRS(strSQL);
-            while (rsEM.next()) {
-                int idPro = rsEM.getInt("IdProducto");
-                String nombre = rsEM.getString("Nombre");
-                float precio = rsEM.getFloat("Precio");
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            while (rsPA.next()) {
+                int idPro = rsPA.getInt("id");
+                String nombre = rsPA.getString("Nombre");
+                int cantidadM = rsPA.getInt("Cantidad_Min_Compra");
+                float precio = rsPA.getFloat("Precio");
+                String img = rsPA.getString("Fotografia");
+                int estado = rsPA.getInt("Estado");
 
-                int cantidadM = rsEM.getInt("CantidadMinima");
+                int usuarioI = rsPA.getInt("Id_Usu_Registra");
+                String fechaI = rsPA.getString("Fecha_Registra");
+                int usuarioM = rsPA.getInt("Id_Usu_Edita");
+                String fechaM = rsPA.getString("Fecha_Edita");
 
-                String fechaI = rsEM.getString("FechaRegistra");
-                String fechaM = rsEM.getString("fechaModificacion");
-                int usuarioI = rsEM.getInt("UsuarioRegistra");
-                int usuarioM = rsEM.getInt("UsuarioModifico");
+                obj = new Producto(idPro, nombre, estado, precio, cantidadM, usuarioI, fechaI, usuarioM, fechaM, img);
 
-                String img = rsEM.getString("Imagen");
-
-                Producto pro = new Producto(idPro, nombre, precio, cantidadM, fechaI, fechaM, usuarioI, usuarioM, img);
-                unPro.add(pro);
             }
-            rsEM.close();
+            rsPA.close();
 
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
@@ -136,43 +138,38 @@ public class ProductoDB {
                     e.getMessage());
         } finally {
         }
-        return unPro;
+        return obj;
     }
 
-    public void eliminarProducto(int idProduct) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
-        String delete
-                = "DELETE FROM Producto Where IdProducto = " + idProduct;
-        accesoDatos.ejecutaSQL(delete);
+    public void Desactivar(int idProduct, int estp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        String desactivar = "";
+        desactivar = "UPDATE Producto SET ESTAD0=" + estp + " Where id = " + idProduct;
+        accesoDatos.ejecutaSQL(desactivar);
 
     }
-    
-    
-    public void ActualizarProducto(Producto productoP) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
-           //Se obtienen los valores del objeto Cliente
-           Producto p = new Producto();
-           p = productoP;
-           
-           //Datos de CLiente         
-                int idPro = p.getIdProducto();
-                String nombre = p.getNombreProducto();
-                float precio = p.getPrecio();
-                
-                int cantidadM = p.getCantidadMinima();
-                String descripcion = p.getDescripcion();
-                String fechaI = p.getFechaRegistro();
-                String fechaM = p.getFechaModificacion();
-                int usuarioI = p.getUsuarioRegistra();
-                int usuarioM = p.getUsuarioModifica();
-               
-                String im = p.getImagen();
-           //Se crea la sentencia de actualización
-           String update = 
-                   "UPDATE Producto SET Nombre = '" + nombre + "', Precio='"+precio+
-                  " CantidadMinima='"+cantidadM+"', Descripcion='"+descripcion+
-                   "', FechaRegistro='"+fechaI+"', fechaModificacion='"+fechaM+"',"
-                   + "UsuarioRegistro='"+usuarioI+"', UsuarioModifico='"+usuarioM+"', Imagen='"+im+"'where IdProducto = "+idPro;
-           //Se ejecuta la sentencia SQL
-           accesoDatos.ejecutaSQL(update);
-               
-     }
+
+    public void Actualizar(Producto obj) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+
+        //Se crea la sentencia de actualización
+        String update = "";
+        try {
+            update = "UPDATE Producto SET Nombre = '" + obj.getNombreProducto() + "', SET Precio = '" + obj.getPrecio()
+                    + " SET Cantidad_Min_Compra = " + obj.getCantidadMinima()
+                    + ", SET Fecha_Edita = '" + obj.getFechaModificacion()
+                    + "',SET Id_Usu_Edita = " + obj.getUsuarioModifica() + ",SET Fotografia = '" + obj.getImagen()
+                    + "'where Id = " + obj.getIdProducto();
+            //Se ejecuta la sentencia SQL
+            accesoDatos.ejecutaSQL(update);
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
+            accesoDatos.cerrarConexion();
+        }
+
+    }
 }

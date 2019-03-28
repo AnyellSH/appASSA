@@ -22,7 +22,7 @@ public class Tipo_TelefonoDB {
 //    private Connection conn;
 //    LinkedList<Tipo_Telefono> lista = new LinkedList<Tipo_Telefono>();
 
-    public Tipo_TelefonoDB(Connection conn) {
+     public Tipo_TelefonoDB(Connection conn) {
         accesoDatos = new AccesoDatos();
         accesoDatos.setDbConn(conn);
 
@@ -69,9 +69,9 @@ public class Tipo_TelefonoDB {
     }
 
     /*SELECCIONAR UNO DE TABLA ID*/
-    public LinkedList<Tipo_Telefono> SeleccionarUno(int idp) throws SNMPExceptions, SQLException {
+    public Tipo_Telefono SeleccionarUno(int idp) throws SNMPExceptions, SQLException {
 
-        LinkedList<Tipo_Telefono> otraLista = new LinkedList<Tipo_Telefono>();
+        Tipo_Telefono Obj = null;
         String select = "";
         try {
 
@@ -87,9 +87,7 @@ public class Tipo_TelefonoDB {
                 String desc = rsPA.getString("Descripcion");
                 int est = rsPA.getInt("Estado");
 
-                Tipo_Telefono Obj = new Tipo_Telefono(id, desc, est);
-
-                otraLista.add(Obj);
+                 Obj = new Tipo_Telefono(id, desc, est);               
 
             }
             rsPA.close();
@@ -102,7 +100,7 @@ public class Tipo_TelefonoDB {
         } finally {
 
         }
-        return otraLista;
+        return Obj;
     }
 
     /*GUARDAR EN LA TABLA*/
@@ -114,7 +112,7 @@ public class Tipo_TelefonoDB {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            insert = "INSER INTO ROLL(Id, Estado, Descripcion )"
+            insert = "INSERT INTO ROLL(Id, Estado, Descripcion )"
                     + "VALUES (" + Objp.getId() + "," + Objp.getEstado() + ",'" + Objp.getDescripcion() + "')";
 
             accesoDatos.ejecutaSQLRetornaRS(insert);
@@ -161,7 +159,7 @@ public class Tipo_TelefonoDB {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            select = "Update Tipo_Telefono set estado=" + tipo.getEstado() + " where id= " + tipo.getId();
+            select = "UPDATE Tipo_Telefono set ESTADO=" + tipo.getEstado() + " where id= " + tipo.getId();
 
             accesoDatos.ejecutaSQL(select);
 

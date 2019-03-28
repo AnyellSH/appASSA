@@ -13,6 +13,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Map;
 import javax.faces.context.ExternalContext;
@@ -28,11 +30,14 @@ import javax.naming.NamingException;
 @SessionScoped
 public class ProductosBean implements Serializable {
 
+    SimpleDateFormat date = null;
+    Date now = new Date(System.currentTimeMillis());
     LinkedList<Producto> listaTablaProductos = new LinkedList<Producto>();
     int idProducto;
     String nombreProducto;
     float precio;
     int cantidadMinima;
+    int estado;
     String fechaRegistro;
     String fechaModificacion;
     int usuarioRegistro;
@@ -46,14 +51,14 @@ public class ProductosBean implements Serializable {
      * Creates a new instance of ProductosBean
      */
     public ProductosBean() {
-
+        date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 
     public LinkedList<Producto> getListaTablaProductos() throws SNMPExceptions, SQLException {
         LinkedList<Producto> lista = new LinkedList<Producto>();
         ProductoDB sDB = new ProductoDB();
 
-        lista = sDB.consultarProductos();
+        lista = sDB.SeleccionaTodos();
 
         LinkedList resultlista = new LinkedList();
         resultlista = lista;
@@ -98,6 +103,22 @@ public class ProductosBean implements Serializable {
 
     public String getFechaRegistro() {
         return fechaRegistro;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public String getUsuarioIng() {
+        return usuarioIng;
+    }
+
+    public void setUsuarioIng(String usuarioIng) {
+        this.usuarioIng = usuarioIng;
     }
 
     public void setFechaRegistro(String fechaRegistro) {
@@ -152,18 +173,25 @@ public class ProductosBean implements Serializable {
         this.usuarioRegistro = usuarioRegistro;
     }
 
-    public void asignaValores(Producto pro) {
-        this.setIdProducto(pro.getIdProducto());
-        this.setNombreProducto(pro.getNombreProducto());
-        this.setCantidadMinima(pro.getCantidadMinima());
-        this.setFechaRegistro(pro.getFechaRegistro());
-        this.setFechaModificacion(pro.getFechaModificacion());
-        this.setPrecio(pro.getPrecio());
-        this.setUsuarioRegistro(pro.getUsuarioRegistra());
-        this.setUsuarioModifica(pro.getUsuarioModifica());
-        this.setImagen(pro.getImagen());
+    public SimpleDateFormat getDate() {
+        return date;
     }
 
+    public void setDate(SimpleDateFormat date) {
+        this.date = date;
+    }
+
+//    public void asignaValores(Producto pro) {
+//        this.setIdProducto(pro.getIdProducto());
+//        this.setNombreProducto(pro.getNombreProducto());
+//        this.setCantidadMinima(pro.getCantidadMinima());
+//        this.setFechaRegistro(date.toString());
+//        this.setFechaModificacion(date.toString());
+//        this.setPrecio(pro.getPrecio());
+//        this.setUsuarioRegistro(pro.getUsuarioRegistra());
+//        this.setUsuarioModifica(pro.getUsuarioModifica());
+//        this.setImagen(pro.getImagen());
+//    }
     public void limpia() {
         this.setIdProducto(0);
         this.setNombreProducto("");
@@ -203,10 +231,9 @@ public class ProductosBean implements Serializable {
 //        }
 //        this.setRutaRecibida("../img/" + i);
 //    }
-
-    public void eliminarProducto(Producto p) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+    public void eliminarProducto(Producto obj) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         ProductoDB pDB = new ProductoDB();
-        pDB.eliminarProducto(p.getIdProducto());
+        pDB.Desactivar(obj.getIdProducto(), obj.getEstado());
 
         this.getListaTablaProductos();
     }
@@ -239,28 +266,35 @@ public class ProductosBean implements Serializable {
         } else {
             img = this.getRutaRecibida();
         }
-        Producto p = new Producto(this.getIdProducto(), this.getNombreProducto(), this.getPrecio(), this.getCantidadMinima(), this.getFechaRegistro(), this.getFechaModificacion(), this.getUsuarioRegistro(), this.getUsuarioModifica(), this.getImagen());
+        Producto p = new Producto(this.getIdProducto(), this.getNombreProducto(), this.getEstado(), this.getPrecio(),
+                this.getCantidadMinima(), this.getUsuarioRegistro(), this.getFechaRegistro(),
+                this.getUsuarioModifica(), this.getFechaModificacion(), this.getImagen());
 
         ProductoDB pDB = new ProductoDB();
 
-        pDB.ActualizarProducto(p);
+        pDB.Actualizar(p);
 
         this.limpia();
         this.getListaTablaProductos();
 
     }
 
-    public void agregarProducto() throws SNMPExceptions, SQLException {
-        Producto p = new Producto(this.getIdProducto(), this.getNombreProducto(), this.getPrecio(), this.getCantidadMinima(), this.getFechaRegistro(), this.getFechaModificacion(), this.getUsuarioRegistro(), this.getUsuarioModifica(), this.getImagen());
+    public void agregarProducto() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+
+        Producto obj = new Producto(this.getIdProducto(), this.getNombreProducto(), this.getEstado(), this.getPrecio(),
+                this.getCantidadMinima(), this.getUsuarioRegistro(), this.getDate().format(now),
+                this.getUsuarioModifica(), this.getDate().format(now), this.getImagen());
+
         ProductoDB pDB = new ProductoDB();
 
-        pDB.insertaProducto(p);
+        pDB.Guardar(obj);
 
         this.limpia();
         this.getListaTablaProductos();
     }
-     public void cierraSesion() throws IOException{
-        
+
+    public void cierraSesion() throws IOException {
+
         final ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         context.invalidateSession();
         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");

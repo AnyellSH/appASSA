@@ -10,32 +10,38 @@ package Model;
  * @author Anyel
  */
 public class Producto {
-    public int idProducto;
+     public int idProducto;
     public String nombreProducto;
     public float precio;
     public int cantidadMinima;
+    public int estado;
     public String fechaRegistro;
     public String fechaModificacion;
     public int usuarioRegistra;
     public int usuarioModifica;
     public String imagen;
 
-    public Producto(int idProducto, String nombreProducto, float precio, int cantidadMinima, String fechaRegistro, String fechaModificacion, int usuarioRegistra, int usuarioModifica, String imagen) {
+    public Producto(int idProducto, String nombreProducto, int estadop, float precio,
+            int cantidadMinima, int usuarioRegistra, String fechaRegistro,
+            int usuarioModifica, String fechaModificacion,
+            String imagen) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.precio = precio;
         this.cantidadMinima = cantidadMinima;
+        this.estado = estadop;
         this.fechaRegistro = fechaRegistro;
         this.fechaModificacion = fechaModificacion;
         this.usuarioRegistra = usuarioRegistra;
         this.usuarioModifica = usuarioModifica;
         this.imagen = imagen;
     }
-     Producto() {
+
+    Producto() {
         super();
     }
 
-    Producto(int idPro, String nombre, float precio, int cantidadE, int cantidadM, String descripcion, String fechaI, String fechaM, int usuarioI, int usuarioM, int idCat, String img) {
+    Producto(int idPro, String nombre, int estadop, float precio, int cantidadE, int cantidadM, String descripcion, String fechaI, String fechaM, int usuarioI, int usuarioM, int idCat, String img) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -115,5 +121,12 @@ public class Producto {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-   
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
 }
