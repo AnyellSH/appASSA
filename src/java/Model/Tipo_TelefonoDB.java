@@ -106,7 +106,6 @@ public class Tipo_TelefonoDB {
     /*GUARDAR EN LA TABLA*/
     public void Guardar(Tipo_Telefono Objp) throws SNMPExceptions, SQLException {
 
-        LinkedList<Roll> otraLista = new LinkedList<Roll>();
         String insert = "";
         try {
 

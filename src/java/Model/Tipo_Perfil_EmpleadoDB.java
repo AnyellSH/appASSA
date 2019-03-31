@@ -54,6 +54,7 @@ public class Tipo_Perfil_EmpleadoDB {
                 int est = rsPA.getInt("Estado");
                 int idper = rsPA.getInt("ID_PERSONA");
                 int idPerfEmpleado = rsPA.getInt("ID_PERFIL_EMPLEADO");
+
                 int idUsuRegistra = rsPA.getInt("Id_Usu_Registra");
                 Date feRegistra = rsPA.getDate("Fecha_Registra");
                 int idUsuEdita = rsPA.getInt("Id_Usu_Edita");
@@ -78,12 +79,11 @@ public class Tipo_Perfil_EmpleadoDB {
     }
 
     /*SELECCIONAR UNO DE TABLA ID*/
-    public LinkedList<Tipo_Perfil_Empleado> SeleccionarUno(int idp) throws SNMPExceptions, SQLException {
+    public Tipo_Perfil_Empleado SeleccionarUno(int idp) throws SNMPExceptions, SQLException {
 
-        LinkedList<Tipo_Perfil_Empleado> otraLista = new LinkedList<Tipo_Perfil_Empleado>();
+        Tipo_Perfil_Empleado Obj = null;
         String select = "";
         try {
-
             AccesoDatos accesoDatos = new AccesoDatos();
 
             select = "Select Id, Descripcion, Estado, ID_PERSONA, ID_PERFIL_EMPLEADO,"
@@ -104,9 +104,7 @@ public class Tipo_Perfil_EmpleadoDB {
                 int idUsuEdita = rsPA.getInt("Id_Usu_Edita");
                 Date feEdita = rsPA.getDate("Fecha_Edita");
 
-                Tipo_Perfil_Empleado Obj = new Tipo_Perfil_Empleado(id, desc, est, idper, idPerfEmpleado, idUsuRegistra, feRegistra, idUsuEdita, feEdita);
-
-                otraLista.add(Obj);
+                Obj = new Tipo_Perfil_Empleado(id, desc, est, idper, idPerfEmpleado, idUsuRegistra, feRegistra, idUsuEdita, feEdita);
 
             }
             rsPA.close();
@@ -119,24 +117,48 @@ public class Tipo_Perfil_EmpleadoDB {
         } finally {
 
         }
-        return otraLista;
+        return Obj;
     }
+/*GUARDAR EN LA TABLA*/
+    public void Guardar(Tipo_Perfil_Empleado Objp) throws SNMPExceptions, SQLException {
 
-    /*ACTUALIZAR UNO DE LA TABLA ID*/
-    public void Actualizar(Tipo_Perfil_Empleado Obj) throws SNMPExceptions, SQLException {
-
-        LinkedList<Tipo_Perfil_Empleado> otraLista = new LinkedList<Tipo_Perfil_Empleado>();
-        String select = "";
+       
+        String insert = "";
         try {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            select = "Update Tipo_Perfil_Empleado set Descripcion='" + Obj.getDescripcion() 
-                    +"',Set Id_Usu_Edita ="+Obj.getIdUsuEdita()
-                    +",Set Fecha_Edita ="+Obj.getFeEdita()
+            insert = "INSERT INTO Tipo_Perfil_Empleado (Id,Descripcion, Estado, ID_PERSONA, ID_PERFIL_EMPLEADO, ID_USU_REGISTRA, FECHA_REGISTRA, ID_USU_EDITA, FECHA_EDITA )"
+                    + "VALUES (" + Objp.getId() + ",'" + Objp.getDescripcion()+ "'," + Objp.getEstado()
+                    +","
+                    +")";
+
+            accesoDatos.ejecutaSQLRetornaRS(insert);
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
+            accesoDatos.cerrarConexion();
+        }
+    }
+    /*ACTUALIZAR UNO DE LA TABLA ID*/
+    public void Actualizar(Tipo_Perfil_Empleado Obj) throws SNMPExceptions, SQLException {
+
+        String update = "";
+        try {
+
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            update = "Update Tipo_Perfil_Empleado set Descripcion='" + Obj.getDescripcion()
+                    + "',Set Id_Usu_Edita =" + Obj.getIdUsuEdita()
+                    + ",Set Fecha_Edita =" + Obj.getFeEdita()
                     + "where id= " + Obj.getId();
 
-            accesoDatos.ejecutaSQL(select);
+            accesoDatos.ejecutaSQL(update);
 
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
@@ -159,7 +181,7 @@ public class Tipo_Perfil_EmpleadoDB {
 
             select = "Update Tipo_Perfil_Empleado set estado=" + obj.getEstado()
                     + " where id= " + obj.getId();
-            
+
             accesoDatos.ejecutaSQL(select);
 
         } catch (SQLException e) {

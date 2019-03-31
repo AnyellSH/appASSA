@@ -56,17 +56,17 @@ public class ProductoDB {
         LinkedList<Producto> lista = new LinkedList<Producto>();
 
         try {
-            //open();
-            //Se instancia la clase de acceso a datos
             AccesoDatos accesoDatos = new AccesoDatos();
+            //Se instancia la clase de acceso a datos
+//            AccesoDatos accesoDatos = new AccesoDatos();
 
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT Id,Nombre,Cantidad_Min_Compra,Precio"
+                    = "SELECT Id,Nombre,Cantidad_Min_Compra,Precio,"
                     + "Fotografia,Estado,"
                     + "Id_Usu_Registra, Fecha_Registra,"
                     + "Id_Usu_Edita,Fecha_Edita "
-                    + "from Producto";
+                    + "from dbo.Producto";
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);

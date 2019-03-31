@@ -5,6 +5,7 @@
  */
 package Beans;
 
+import DAO.AccesoDatos;
 import DAO.SNMPExceptions;
 import Model.ProductoDB;
 import Model.Producto;
@@ -65,6 +66,16 @@ public class ProductosBean implements Serializable {
         return resultlista;
     }
 
+//    public LinkedList<Producto> getListaTablaProductos() throws SNMPExceptions, SQLException {
+//        LinkedList<Producto> lista = new LinkedList<Producto>();
+//        ProductoDB sDB = new ProductoDB();
+//
+//        lista = sDB.SeleccionaTodos();
+//
+//        LinkedList resultlista = new LinkedList();
+//        resultlista = lista;
+//        return resultlista;
+//    }
     public void setListaTablaProductos(LinkedList<Producto> listaTablaProductos) {
         this.listaTablaProductos = listaTablaProductos;
     }
@@ -293,10 +304,21 @@ public class ProductosBean implements Serializable {
         this.getListaTablaProductos();
     }
 
+    public void selecionarTodos() throws SNMPExceptions, SQLException {
+        ProductoDB sDB = new ProductoDB();
+//
+        listaTablaProductos = sDB.SeleccionaTodos();
+//
+//        LinkedList resultlista = new LinkedList();
+//        resultlista = lista;
+
+    }
+
     public void cierraSesion() throws IOException {
 
         final ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         context.invalidateSession();
         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
+
 }
