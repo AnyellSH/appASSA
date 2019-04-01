@@ -14,27 +14,30 @@ import javax.naming.NamingException;
 
 /**
  *
- * @author Anyel
+ * @author Pablo Mora
  */
-public class ProductoDB {
+public class IdentificacionDB {
 
     public AccesoDatos accesoDatos = new AccesoDatos();
 //    LinkedList<Producto> listaProductos = new LinkedList<Producto>();
 
-    public void Guardar(Producto obj) throws SNMPExceptions, SQLException {
+    public void Guardar(Identificacion obj) throws SNMPExceptions, SQLException {
 
         String strSQL = "";
         try {
-            strSQL = "INSERT INTO [dbo].[PRODUCTO]([Id],[Nombre],"
-                    + "[Cantidad_Min_Compra],[Precio],[Fotografia],[Estado],"
-                    + "[Id_Usu_Registra],[Fecha_Registra],[Id_Usu_Edita],[Fecha_Edita])"
-                    + "VALUES(" + obj.getIdProducto() + ",'" + obj.getNombreProducto() + "',"
-                    + obj.getCantidadMinima() + "," + obj.getPrecio() + ",'"
-                    + obj.getImagen() + "'," + obj.getEstado() + ","
-                    + obj.getUsuarioRegistra() + ",'"
-                    + obj.getFechaRegistro() + "',"
-                    + obj.getUsuarioModifica() + ",'"
-                    + obj.getFechaModificacion() + "')";
+            strSQL = "INSERT INTO [dbo].[Identificacion]([Id],[Identificacion],"
+                    + "[Estado],ID_TIPO_IDENTIFICACION,"
+                    + "[Id_Usu_Registra],[Fecha_Registra],"
+                    + "[Id_Usu_Edita],[Fecha_Edita])"
+                    + "VALUES("
+                    + obj.getId() + ",'"
+                    + obj.getIdentificacion() + "',"
+                    + obj.getEstado() + ","
+                    + obj.getIdTipIdentificacion().id + ","
+                    + obj.getIdUsuRegistra() + ",'"
+                    + obj.getFeRegistra() + "',"
+                    + obj.getIdUsuEdita() + ",'"
+                    + obj.getFeEdita() + "')";
 
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL);
@@ -50,10 +53,11 @@ public class ProductoDB {
         }
     }
 
-    public LinkedList<Producto> SeleccionaTodos() throws SNMPExceptions, SQLException {
+    public LinkedList<Identificacion> SeleccionaTodos() throws SNMPExceptions, SQLException {
+        Tipo_IdentificacionDB tipoDB = new Tipo_IdentificacionDB();
         String select = "";
 
-        LinkedList<Producto> lista = new LinkedList<Producto>();
+        LinkedList<Identificacion> lista = new LinkedList<Identificacion>();
 
         try {
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -62,11 +66,11 @@ public class ProductoDB {
 
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT Id,Nombre,Cantidad_Min_Compra,Precio,"
-                    + "Fotografia,Estado,"
+                    = "SELECT Id,Identificacion,"
+                    + "Estado,ID_TIPO_IDENTIFICACION,"
                     + "Id_Usu_Registra, Fecha_Registra,"
                     + "Id_Usu_Edita,Fecha_Edita "
-                    + "from dbo.Producto";
+                    + "from dbo.Identificacion";
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
@@ -74,20 +78,19 @@ public class ProductoDB {
             while (rsPA.next()) {
 
                 int idPro = rsPA.getInt("id");
-                String nombre = rsPA.getString("Nombre");
-                int cantidadM = rsPA.getInt("Cantidad_Min_Compra");
-                float precio = rsPA.getFloat("Precio");
-                String img = rsPA.getString("Fotografia");
+                String identificacion = rsPA.getString("Identificacion");
                 int estado = rsPA.getInt("Estado");
+                int tipo = rsPA.getInt("ID_TIPO_IDENTIFICACION");
 
+                Tipo_Identificacion tipoId = tipoDB.SeleccionarUno(tipo);
                 int usuarioI = rsPA.getInt("Id_Usu_Registra");
                 String fechaI = rsPA.getString("Fecha_Registra");
                 int usuarioM = rsPA.getInt("Id_Usu_Edita");
                 String fechaM = rsPA.getString("Fecha_Edita");
 
-                Producto pro = new Producto(idPro, nombre, estado, precio, cantidadM, usuarioI, fechaI, usuarioM, fechaM, img);
-                if (pro.getEstado() == 1) {
-                    lista.add(pro);
+                Identificacion obj = new Identificacion(idPro, identificacion, estado, tipoId, usuarioI, fechaI, usuarioM, fechaM);
+                if (obj.getEstado() == 1) {
+                    lista.add(obj);
                 }
             }
             rsPA.close();
@@ -105,10 +108,11 @@ public class ProductoDB {
         return lista;
     }
 
-    public LinkedList<Producto> SeleccionaTodosDesactivados() throws SNMPExceptions, SQLException {
+    public LinkedList<Identificacion> SeleccionaTodosDesactivados() throws SNMPExceptions, SQLException {
+        Tipo_IdentificacionDB tipoDB = new Tipo_IdentificacionDB();
         String select = "";
 
-        LinkedList<Producto> lista = new LinkedList<Producto>();
+        LinkedList<Identificacion> lista = new LinkedList<Identificacion>();
 
         try {
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -117,11 +121,11 @@ public class ProductoDB {
 
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT Id,Nombre,Cantidad_Min_Compra,Precio,"
-                    + "Fotografia,Estado,"
+                    = "SELECT Id,Identificacion,"
+                    + "Estado,ID_TIPO_IDENTIFICACION,"
                     + "Id_Usu_Registra, Fecha_Registra,"
                     + "Id_Usu_Edita,Fecha_Edita "
-                    + "from dbo.Producto";
+                    + "from dbo.Identificacion";
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
@@ -129,20 +133,19 @@ public class ProductoDB {
             while (rsPA.next()) {
 
                 int idPro = rsPA.getInt("id");
-                String nombre = rsPA.getString("Nombre");
-                int cantidadM = rsPA.getInt("Cantidad_Min_Compra");
-                float precio = rsPA.getFloat("Precio");
-                String img = rsPA.getString("Fotografia");
+                String nombre = rsPA.getString("Identificacion");
                 int estado = rsPA.getInt("Estado");
+                int tipo = rsPA.getInt("ID_TIPO_IDENTIFICACION");
 
+                Tipo_Identificacion tipoId = tipoDB.SeleccionarUno(tipo);
                 int usuarioI = rsPA.getInt("Id_Usu_Registra");
                 String fechaI = rsPA.getString("Fecha_Registra");
                 int usuarioM = rsPA.getInt("Id_Usu_Edita");
                 String fechaM = rsPA.getString("Fecha_Edita");
 
-                Producto pro = new Producto(idPro, nombre, estado, precio, cantidadM, usuarioI, fechaI, usuarioM, fechaM, img);
-                if (pro.getEstado() == 0) {
-                    lista.add(pro);
+                Identificacion obj = new Identificacion(idPro, nombre, estado, tipoId, usuarioI, fechaI, usuarioM, fechaM);
+                if (obj.getEstado() == 0) {
+                    lista.add(obj);
                 }
             }
             rsPA.close();
@@ -159,29 +162,29 @@ public class ProductoDB {
 
         return lista;
     }
-    public Producto SeleccionarUno(int idProduct) throws SNMPExceptions, SQLException {
 
+    public Identificacion SeleccionarUno(int idp) throws SNMPExceptions, SQLException {
+        Tipo_IdentificacionDB tipoDB = new Tipo_IdentificacionDB();
         String select = "";
-        Producto obj = null;
+        Identificacion obj = null;
         try {
 
-            select = "Select * from Producto where Id =" + idProduct;
+            select = "Select * from Identificacion where Id =" + idp;
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             while (rsPA.next()) {
                 int idPro = rsPA.getInt("id");
-                String nombre = rsPA.getString("Nombre");
-                int cantidadM = rsPA.getInt("Cantidad_Min_Compra");
-                float precio = rsPA.getFloat("Precio");
-                String img = rsPA.getString("Fotografia");
+                String nombre = rsPA.getString("Identificacion");
                 int estado = rsPA.getInt("Estado");
+                int tipo = rsPA.getInt("ID_TIPO_IDENTIFICACION");
+                Tipo_Identificacion tipoId = tipoDB.SeleccionarUno(tipo);
 
                 int usuarioI = rsPA.getInt("Id_Usu_Registra");
                 String fechaI = rsPA.getString("Fecha_Registra");
                 int usuarioM = rsPA.getInt("Id_Usu_Edita");
                 String fechaM = rsPA.getString("Fecha_Edita");
 
-                obj = new Producto(idPro, nombre, estado, precio, cantidadM, usuarioI, fechaI, usuarioM, fechaM, img);
+                obj = new Identificacion(idPro, nombre, estado, tipoId, usuarioI, fechaI, usuarioM, fechaM);
 
             }
             rsPA.close();
@@ -193,29 +196,28 @@ public class ProductoDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage());
         } finally {
+            accesoDatos.cerrarConexion();
         }
         return obj;
     }
 
     public void Desactivar(int idProduct, int estp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String desactivar = "";
-        desactivar = "UPDATE Producto SET Estado=" + estp + " Where id = " + idProduct;
+        desactivar = "UPDATE Identificacion SET Estado=" + estp + " Where id = " + idProduct;
         accesoDatos.ejecutaSQL(desactivar);
 
     }
 
-    public void Actualizar(Producto obj) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+    public void Actualizar(Identificacion obj) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
 
         //Se crea la sentencia de actualización
         String update = "";
         try {
-            update = "UPDATE Producto SET Nombre = '" + obj.getNombreProducto()
-                    + "',Precio = " + obj.getPrecio()
-                    + ",Cantidad_Min_Compra = " + obj.getCantidadMinima()
-                    + ",Fecha_Edita = '" + obj.getFechaModificacion()
-                    + "',Id_Usu_Edita = " + obj.getUsuarioModifica()
-                    + ",Fotografia = '" + obj.getImagen()
-                    + "'where Id = " + obj.getIdProducto();
+            update = "UPDATE Identificacion SET identificacion = '" + obj.getIdentificacion()
+                    + "',ID_TIPO_IDENTIFICACION = " + obj.getIdTipIdentificacion().getId()
+                    + ",Fecha_Edita = '" + obj.getFeEdita()
+                    + "',Id_Usu_Edita = " + obj.getIdUsuEdita()
+                    + "where Id = " + obj.getId();
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(update);
 

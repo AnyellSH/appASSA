@@ -31,7 +31,6 @@ public class Tipo_IdentificacionDB {
     public Tipo_IdentificacionDB() {
     }
 
-    
     /*SELECCIONAR TODOS*/
     public LinkedList<Tipo_Identificacion> SeleccionarTodos() throws SNMPExceptions, SQLException {
 
@@ -68,17 +67,16 @@ public class Tipo_IdentificacionDB {
         }
         return otraLista;
     }
-   
-    /*SELECCIONAR UNO DE TABLA ID*/    
-    public LinkedList<Tipo_Identificacion> SeleccionarUno(int idp) throws SNMPExceptions, SQLException {
 
-        LinkedList<Tipo_Identificacion> otraLista = new LinkedList<Tipo_Identificacion>();
+    /*SELECCIONAR UNO DE TABLA ID*/
+    public Tipo_Identificacion SeleccionarUno(int idp) throws SNMPExceptions, SQLException {
+        Tipo_Identificacion obj = null;
         String select = "";
         try {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            select = "Select Id,Descripcion, Estado from Tipo_Identificacion where id= "+idp;
+            select = "Select Id,Descripcion, Estado from Tipo_Identificacion where id= " + idp;
 
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
 
@@ -88,9 +86,7 @@ public class Tipo_IdentificacionDB {
                 String desc = rsPA.getString("Descripcion");
                 int est = rsPA.getInt("Estado");
 
-                Tipo_Identificacion Obj = new Tipo_Identificacion(id, desc, est);
-
-                otraLista.add(Obj);
+                obj = new Tipo_Identificacion(id, desc, est);
 
             }
             rsPA.close();
@@ -103,11 +99,11 @@ public class Tipo_IdentificacionDB {
         } finally {
 
         }
-        return otraLista;
+        return obj;
     }
-    
+
     /*ACTUALIZAR UNO DE LA TABLA ID*/
-    public LinkedList<Tipo_Identificacion> Actualizar(int idp,String desp) throws SNMPExceptions, SQLException {
+    public LinkedList<Tipo_Identificacion> Actualizar(int idp, String desp) throws SNMPExceptions, SQLException {
 
         LinkedList<Tipo_Identificacion> otraLista = new LinkedList<Tipo_Identificacion>();
         String select = "";
@@ -115,7 +111,7 @@ public class Tipo_IdentificacionDB {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            select = "Update Tipo_Identificacion set Descripcion="+desp+" where id= "+idp;
+            select = "Update Tipo_Identificacion set Descripcion=" + desp + " where id= " + idp;
 
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
 
@@ -142,9 +138,9 @@ public class Tipo_IdentificacionDB {
         }
         return otraLista;
     }
-    
+
     /*DESACTIVAR UNO DE LA TABLA POR ID*/
-    public LinkedList<Tipo_Identificacion> Desactivar(int idp,int estp) throws SNMPExceptions, SQLException {
+    public LinkedList<Tipo_Identificacion> Desactivar(int idp, int estp) throws SNMPExceptions, SQLException {
 
         LinkedList<Tipo_Identificacion> otraLista = new LinkedList<Tipo_Identificacion>();
         String select = "";
@@ -152,7 +148,7 @@ public class Tipo_IdentificacionDB {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            select = "Update Tipo_Identificacion set estado="+estp+" where id= "+idp;
+            select = "Update Tipo_Identificacion set estado=" + estp + " where id= " + idp;
 
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
 

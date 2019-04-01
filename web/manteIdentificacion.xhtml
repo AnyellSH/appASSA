@@ -20,7 +20,7 @@ and open the template in the editor.
         <title>Mantenimiento de Identificacion</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-     <h:body>
+    <h:body>
         <div id="loader-wrapper">
             <div class="logo"></div>
             <div id="loader">
@@ -64,7 +64,7 @@ and open the template in the editor.
         <!-- TERMINA EL HEADER -->
         <br></br>
         <br></br>
-        
+
         <!-- COMIENZA SEC SOLICITUDES -->
         <section id="abt_sec">
             <div class="container">
@@ -80,28 +80,29 @@ and open the template in the editor.
 
                             <!--================ INICIA AREA DE CREACION DEL PRODUCTO =================-->
                             <div style="width: 90%"> 
-                                <p style="font-size: 1.2em">Seleccionar el tipo de Identificacion</p>
+                                <p style="font-size: 1.2em">Registrar una Identificación</p>
                                 <br></br>
                                 <br></br>
+                                <!--
                                 <h:outputLabel value="Codigo: "></h:outputLabel>
                                 <h:inputText style="margin-left: 4%; margin-bottom: 2%"></h:inputText>
-                                <br></br>
+                                <br></br> 
+                                -->
                                 <h:outputLabel value="Identificacion: "></h:outputLabel>
                                 <h:inputText style="margin-left: 4%; margin-bottom: 2%" ></h:inputText>
                                 <br></br>
                                 <h:outputLabel value="Tipo de Identificacion: "></h:outputLabel>
-                                 <h:selectOneMenu style="margin-left: 4%; margin-bottom: 2%"  onchange="submit()">
-                            <f:selectItems ></f:selectItems>
-                        </h:selectOneMenu>
+                                <h:selectOneMenu style="margin-left: 4%; margin-bottom: 2%"  onchange="submit()">
+                                    <f:selectItems value="#{identificacionBean.listatip_Identi}" ></f:selectItems>
+                                </h:selectOneMenu>
                                 <br></br>
                                 <h:outputLabel value="Estado: "></h:outputLabel>
                                 <h:outputLabel style="margin-left: 4%; margin-bottom: 2%" value="Activo: "></h:outputLabel>
                                 <h:selectBooleanCheckbox style="margin-left: 4%; margin-bottom: 2%" ></h:selectBooleanCheckbox>
                                 <h:outputLabel  style="margin-left: 4%; margin-bottom: 2%" value="Inactivo: "></h:outputLabel>
                                 <h:selectBooleanCheckbox style="margin-left: 4%; margin-bottom: 2%" ></h:selectBooleanCheckbox>
-                                <br></br>
-                                <h:commandButton value="Actualizar" action="#{productosBean.actualizaDatos()}"></h:commandButton>
-                                <h:commandButton value="CREAR" action="#{productosBean.agregarProducto()}"></h:commandButton>
+                                <br></br>           
+                                <h:commandButton value="GUARDAR" action="#{identificacionBean.Guardar()}"></h:commandButton>
                                 <br></br>
                                 <br></br>
                                 <br></br>
@@ -109,44 +110,63 @@ and open the template in the editor.
                             </div>
                             <br></br>
                             <br></br>
+                            <h2>Identificaciones activas</h2>
                             <div class="datagrid">
-                                <h:dataTable  var="producc" style="text-align: center">
+                                <h:dataTable  var="ident_act" style="text-align: center" value="#{identificacionBean.listaActivos}">
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Codigo"></h:outputText>
+                                            <h:outputText value="Identificación"></h:outputText>
                                         </f:facet>
-                                        <h:outputText ></h:outputText>
+                                        <h:outputText value="#{ident_act.identificacion}"></h:outputText>
                                     </h:column>
 
                                     <h:column>
                                         <f:facet name="header">
+                                            <h:outputText value="Tipo Identificación"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="#{ident_act.idTipIdentificacion.descripcion}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Editar Identificación" ></h:outputText>
+                                        </f:facet>
+                                        <h:commandButton value="Editar"  action="#{identificacionBean.asignaValores(ident_act)}" ></h:commandButton>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Eliminar"></h:outputText>
+                                        </f:facet>
+                                        <h:commandButton value="Eliminar" action="#{identificacionBean.Activo(ident_act.id, 0)}" ></h:commandButton>
+                                    </h:column>
+                                </h:dataTable>
+                            </div> 
+                            <br></br>
+                            <br></br>
+                            <h2>Identificaciones Inactivas</h2>
+                            <div class="datagrid">
+                                <h:dataTable  var="idet_Inac" style="text-align: center" value="#{identificacionBean.listaInactivos}">
+                                    <h:column>
+                                        <f:facet name="header">
                                             <h:outputText value="Identificacion"></h:outputText>
                                         </f:facet>
-                                        <h:outputText ></h:outputText>
+                                        <h:outputText value="#{idet_Inac.identificacion}"></h:outputText>
                                     </h:column>
 
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Tipo Identificacion"></h:outputText>
                                         </f:facet>
-                                        <h:outputText ></h:outputText>
+                                        <h:outputText value="#{idet_Inac.idTipIdentificacion.descripcion}"></h:outputText>
                                     </h:column>
+
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Editar Producto" ></h:outputText>
+                                            <h:outputText value="Restablecer Indentificación"></h:outputText>
                                         </f:facet>
-                                        <h:commandButton value="Editar"  action="#{productosBean.asignaValores(producc)}" ></h:commandButton>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Eliminar Producto"></h:outputText>
-                                        </f:facet>
-                                        <h:commandButton value="Eliminar" action="#{productosBean.eliminarProducto(producc)}" ></h:commandButton>
+                                        <h:commandButton value="Restablecer" action="#{identificacionBean.Inactivo(idet_Inac.id, 1)}" ></h:commandButton>
                                     </h:column>
                                 </h:dataTable>
                             </div> 
-                            <br></br>
-                            <br></br>
                         </h:form>
 
                     </div>				
@@ -190,20 +210,20 @@ and open the template in the editor.
         <script src="showHide.js" type="text/javascript"></script>
         <script type="text/javascript">
 
-            $(document).ready(function () {
+                                    $(document).ready(function () {
 
 
-                $('.show_hide').showHide({
-                    speed: 1000, // speed you want the toggle to happen	
-                    easing: '', // the animation effect you want. Remove this line if you dont want an effect and if you haven't included jQuery UI
-                    changeText: 1, // if you dont want the button text to change, set this to 0
-                    showText: 'View', // the button text to show when a div is closed
-                    hideText: 'Close' // the button text to show when a div is open
+                                        $('.show_hide').showHide({
+                                            speed: 1000, // speed you want the toggle to happen	
+                                            easing: '', // the animation effect you want. Remove this line if you dont want an effect and if you haven't included jQuery UI
+                                            changeText: 1, // if you dont want the button text to change, set this to 0
+                                            showText: 'View', // the button text to show when a div is closed
+                                            hideText: 'Close' // the button text to show when a div is open
 
-                });
+                                        });
 
 
-            });
+                                    });
 
         </script>
         <script>
@@ -222,7 +242,7 @@ and open the template in the editor.
                 $("body").css("overflow", "hidden");
             });
 
-        // Show Overflow of Body when Everything has Loaded 
+            // Show Overflow of Body when Everything has Loaded 
             $(window).load(function () {
                 $("body").css("overflow", "visible");
                 var nice = $('html').niceScroll({
@@ -236,9 +256,9 @@ and open the template in the editor.
             });
         </script>
         <!--TERMINA AREA DE SCRIPTS -->
-                        
-     </h:body>>
-    
-    
-    
+
+    </h:body>>
+
+
+
 </html>

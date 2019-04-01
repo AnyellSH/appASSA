@@ -20,7 +20,7 @@ and open the template in the editor.
         <title>Mantenimiento de Perfiles</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-     <h:body>
+    <h:body>
         <div id="loader-wrapper">
             <div class="logo"></div>
             <div id="loader">
@@ -64,7 +64,7 @@ and open the template in the editor.
         <!-- TERMINA EL HEADER -->
         <br></br>
         <br></br>
-        
+
         <!-- COMIENZA SEC SOLICITUDES -->
         <section id="abt_sec">
             <div class="container">
@@ -80,24 +80,25 @@ and open the template in the editor.
 
                             <!--================ INICIA AREA DE CREACION DEL PRODUCTO =================-->
                             <div style="width: 90%"> 
-                                <p style="font-size: 1.2em">Seleccionar el tipo de Perfil</p>
+                                <p style="font-size: 1.2em">Registro de Perfiles</p>
                                 <br></br>
                                 <br></br>
                                 <h:outputLabel value="Codigo: "></h:outputLabel>
-                                <h:inputText style="margin-left: 4%; margin-bottom: 2%"></h:inputText>
+                                <h:inputText style="margin-left: 4%; margin-bottom: 2%;" value="#{perfilBean.id}"></h:inputText>
+                                <h:outputText value="#{perfilBean.errorid}" style="color: red"></h:outputText>
                                 <br></br>
                                 <h:outputLabel value="Descripcion: "></h:outputLabel>
-                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" ></h:inputText>
-                                
+                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{perfilBean.descripcion}"></h:inputText>
+
                                 <br></br>
                                 <h:outputLabel value="Estado: "></h:outputLabel>
-                                <h:outputLabel style="margin-left: 4%; margin-bottom: 2%" value="Activo: "></h:outputLabel>
-                                <h:selectBooleanCheckbox style="margin-left: 4%; margin-bottom: 2%" ></h:selectBooleanCheckbox>
+                                <h:outputLabel style="margin-left: 4%; margin-bottom: 2%" value="Activo: " ></h:outputLabel>
+                                <h:selectBooleanCheckbox style="margin-left: 4%; margin-bottom: 2%" value="#{perfilBean.estadoV}" ></h:selectBooleanCheckbox>
                                 <h:outputLabel  style="margin-left: 4%; margin-bottom: 2%" value="Inactivo: "></h:outputLabel>
-                                <h:selectBooleanCheckbox style="margin-left: 4%; margin-bottom: 2%" ></h:selectBooleanCheckbox>
+                                <h:selectBooleanCheckbox style="margin-left: 4%; margin-bottom: 2%" value="#{perfilBean.estadoF}" ></h:selectBooleanCheckbox>
                                 <br></br>
-                                <h:commandButton value="Actualizar" action="#{productosBean.actualizaDatos()}"></h:commandButton>
-                                <h:commandButton value="CREAR" action="#{productosBean.agregarProducto()}"></h:commandButton>
+                                <h:commandButton value="Actualizar" action="#{perfilBean.actualizaDatos()}"></h:commandButton>
+                                <h:commandButton value="CREAR" actionListener="#{perfilBean.Guardar()}"></h:commandButton>
                                 <br></br>
                                 <br></br>
                                 <br></br>
@@ -105,39 +106,64 @@ and open the template in the editor.
                             </div>
                             <br></br>
                             <br></br>
+                            <h2>Perfiles Activos</h2>
                             <div class="datagrid">
-                                <h:dataTable  var="producc" style="text-align: center">
+                                <h:dataTable  var="perfil" style="text-align: center" value="#{perfilBean.listaActivos}">
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Codigo"></h:outputText>
+                                            <h:outputText value="Codigo" ></h:outputText>
                                         </f:facet>
-                                        <h:outputText ></h:outputText>
+                                        <h:outputText value="#{perfil.id}"></h:outputText>
                                     </h:column>
 
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Descripcion"></h:outputText>
                                         </f:facet>
-                                        <h:outputText ></h:outputText>
-                                    </h:column>
-
-                                   
+                                        <h:outputText value="#{perfil.descripcion}"></h:outputText>
+                                    </h:column>                                   
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Editar Producto" ></h:outputText>
+                                            <h:outputText value="Editar Perfil" ></h:outputText>
                                         </f:facet>
-                                        <h:commandButton value="Editar" action="#{productosBean.asignaValores(producc)}"></h:commandButton>
+                                        <h:commandButton value="Editar" action="#{perfilBean.asignaValores(perfil)}"></h:commandButton>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Eliminar Producto"></h:outputText>
+                                            <h:outputText value="Eliminar Perfil"></h:outputText>
                                         </f:facet>
-                                        <h:commandButton value="Eliminar" action="#{productosBean.eliminarProducto(producc)}" ></h:commandButton>
+                                        <h:commandButton value="Eliminar" action="#{perfilBean.Activo(perfil.id, 0)}" ></h:commandButton>
                                     </h:column>
                                 </h:dataTable>
                             </div> 
                             <br></br>
                             <br></br>
+
+                            <h2>Perfiles Inactivos</h2>
+                            <div class="datagrid">
+                                <h:dataTable  var="perfilI" style="text-align: center" value="#{perfilBean.listaInactivos}">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Codigo"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="#{perfilI.id}"></h:outputText>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Descripcion"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="#{perfilI.descripcion}"></h:outputText>
+                                    </h:column>                                
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Restableser Perfil"></h:outputText>
+                                        </f:facet>
+                                        <h:commandButton value="Restableser" action="#{perfilBean.Inactivo(perfilI.id, 1)}" ></h:commandButton>
+                                    </h:column>
+                                </h:dataTable>
+                            </div> 
                         </h:form>
 
                     </div>				
@@ -213,7 +239,7 @@ and open the template in the editor.
                 $("body").css("overflow", "hidden");
             });
 
-        // Show Overflow of Body when Everything has Loaded 
+            // Show Overflow of Body when Everything has Loaded 
             $(window).load(function () {
                 $("body").css("overflow", "visible");
                 var nice = $('html').niceScroll({
@@ -227,9 +253,9 @@ and open the template in the editor.
             });
         </script>
         <!--TERMINA AREA DE SCRIPTS -->
-                        
-     </h:body>>
-    
-    
-    
+
+    </h:body>>
+
+
+
 </html>

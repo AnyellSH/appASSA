@@ -14,27 +14,29 @@ import javax.naming.NamingException;
 
 /**
  *
- * @author Anyel
+ * @author Pablo Mora
  */
-public class ProductoDB {
+public class PerfilDB {
 
     public AccesoDatos accesoDatos = new AccesoDatos();
 //    LinkedList<Producto> listaProductos = new LinkedList<Producto>();
 
-    public void Guardar(Producto obj) throws SNMPExceptions, SQLException {
+    public void Guardar(Perfil obj) throws SNMPExceptions, SQLException {
 
         String strSQL = "";
         try {
-            strSQL = "INSERT INTO [dbo].[PRODUCTO]([Id],[Nombre],"
-                    + "[Cantidad_Min_Compra],[Precio],[Fotografia],[Estado],"
-                    + "[Id_Usu_Registra],[Fecha_Registra],[Id_Usu_Edita],[Fecha_Edita])"
-                    + "VALUES(" + obj.getIdProducto() + ",'" + obj.getNombreProducto() + "',"
-                    + obj.getCantidadMinima() + "," + obj.getPrecio() + ",'"
-                    + obj.getImagen() + "'," + obj.getEstado() + ","
-                    + obj.getUsuarioRegistra() + ",'"
-                    + obj.getFechaRegistro() + "',"
-                    + obj.getUsuarioModifica() + ",'"
-                    + obj.getFechaModificacion() + "')";
+            strSQL = "INSERT INTO [dbo].[Perfiles]([Id],[Descripcion],"
+                    + "[Estado],"
+                    + "[Id_Usu_Registra],[Fecha_Registra],"
+                    + "[Id_Usu_Edita],[Fecha_Edita])"
+                    + "VALUES("
+                    + obj.getId() + ",'"
+                    + obj.getDescripcion() + "',"
+                    + obj.getEstado() + ","
+                    + obj.getIdUsuRegistra() + ",'"
+                    + obj.getFeRegistra() + "',"
+                    + obj.getIdUsuEdita() + ",'"
+                    + obj.getFeEdita() + "')";
 
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL);
@@ -50,10 +52,10 @@ public class ProductoDB {
         }
     }
 
-    public LinkedList<Producto> SeleccionaTodos() throws SNMPExceptions, SQLException {
+    public LinkedList<Perfil> SeleccionaTodos() throws SNMPExceptions, SQLException {
         String select = "";
 
-        LinkedList<Producto> lista = new LinkedList<Producto>();
+        LinkedList<Perfil> lista = new LinkedList<Perfil>();
 
         try {
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -62,11 +64,11 @@ public class ProductoDB {
 
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT Id,Nombre,Cantidad_Min_Compra,Precio,"
-                    + "Fotografia,Estado,"
+                    = "SELECT Id,Descripcion,"
+                    + "Estado,"
                     + "Id_Usu_Registra, Fecha_Registra,"
                     + "Id_Usu_Edita,Fecha_Edita "
-                    + "from dbo.Producto";
+                    + "from dbo.Perfiles";
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
@@ -74,10 +76,7 @@ public class ProductoDB {
             while (rsPA.next()) {
 
                 int idPro = rsPA.getInt("id");
-                String nombre = rsPA.getString("Nombre");
-                int cantidadM = rsPA.getInt("Cantidad_Min_Compra");
-                float precio = rsPA.getFloat("Precio");
-                String img = rsPA.getString("Fotografia");
+                String nombre = rsPA.getString("Descripcion");
                 int estado = rsPA.getInt("Estado");
 
                 int usuarioI = rsPA.getInt("Id_Usu_Registra");
@@ -85,9 +84,9 @@ public class ProductoDB {
                 int usuarioM = rsPA.getInt("Id_Usu_Edita");
                 String fechaM = rsPA.getString("Fecha_Edita");
 
-                Producto pro = new Producto(idPro, nombre, estado, precio, cantidadM, usuarioI, fechaI, usuarioM, fechaM, img);
-                if (pro.getEstado() == 1) {
-                    lista.add(pro);
+                Perfil obj = new Perfil(idPro, nombre, estado, usuarioI, fechaI, usuarioM, fechaM);
+                if (obj.getEstado() == 1) {
+                    lista.add(obj);
                 }
             }
             rsPA.close();
@@ -105,10 +104,10 @@ public class ProductoDB {
         return lista;
     }
 
-    public LinkedList<Producto> SeleccionaTodosDesactivados() throws SNMPExceptions, SQLException {
+    public LinkedList<Perfil> SeleccionaTodosDesactivados() throws SNMPExceptions, SQLException {
         String select = "";
 
-        LinkedList<Producto> lista = new LinkedList<Producto>();
+        LinkedList<Perfil> lista = new LinkedList<Perfil>();
 
         try {
             AccesoDatos accesoDatos = new AccesoDatos();
@@ -117,11 +116,11 @@ public class ProductoDB {
 
             //Se crea la sentencia de búsqueda
             select
-                    = "SELECT Id,Nombre,Cantidad_Min_Compra,Precio,"
-                    + "Fotografia,Estado,"
+                    = "SELECT Id,Descripcion,"
+                    + "Estado,"
                     + "Id_Usu_Registra, Fecha_Registra,"
                     + "Id_Usu_Edita,Fecha_Edita "
-                    + "from dbo.Producto";
+                    + "from dbo.Perfiles";
 
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
@@ -129,10 +128,7 @@ public class ProductoDB {
             while (rsPA.next()) {
 
                 int idPro = rsPA.getInt("id");
-                String nombre = rsPA.getString("Nombre");
-                int cantidadM = rsPA.getInt("Cantidad_Min_Compra");
-                float precio = rsPA.getFloat("Precio");
-                String img = rsPA.getString("Fotografia");
+                String nombre = rsPA.getString("Descripcion");
                 int estado = rsPA.getInt("Estado");
 
                 int usuarioI = rsPA.getInt("Id_Usu_Registra");
@@ -140,9 +136,9 @@ public class ProductoDB {
                 int usuarioM = rsPA.getInt("Id_Usu_Edita");
                 String fechaM = rsPA.getString("Fecha_Edita");
 
-                Producto pro = new Producto(idPro, nombre, estado, precio, cantidadM, usuarioI, fechaI, usuarioM, fechaM, img);
-                if (pro.getEstado() == 0) {
-                    lista.add(pro);
+                Perfil obj = new Perfil(idPro, nombre, estado, usuarioI, fechaI, usuarioM, fechaM);
+                if (obj.getEstado() == 0) {
+                    lista.add(obj);
                 }
             }
             rsPA.close();
@@ -159,21 +155,19 @@ public class ProductoDB {
 
         return lista;
     }
-    public Producto SeleccionarUno(int idProduct) throws SNMPExceptions, SQLException {
+
+    public Perfil SeleccionarUno(int idp) throws SNMPExceptions, SQLException {
 
         String select = "";
-        Producto obj = null;
+        Perfil obj = null;
         try {
 
-            select = "Select * from Producto where Id =" + idProduct;
+            select = "Select * from Perfiles where Id =" + idp;
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             while (rsPA.next()) {
                 int idPro = rsPA.getInt("id");
-                String nombre = rsPA.getString("Nombre");
-                int cantidadM = rsPA.getInt("Cantidad_Min_Compra");
-                float precio = rsPA.getFloat("Precio");
-                String img = rsPA.getString("Fotografia");
+                String nombre = rsPA.getString("Descripcion");
                 int estado = rsPA.getInt("Estado");
 
                 int usuarioI = rsPA.getInt("Id_Usu_Registra");
@@ -181,7 +175,7 @@ public class ProductoDB {
                 int usuarioM = rsPA.getInt("Id_Usu_Edita");
                 String fechaM = rsPA.getString("Fecha_Edita");
 
-                obj = new Producto(idPro, nombre, estado, precio, cantidadM, usuarioI, fechaI, usuarioM, fechaM, img);
+                obj = new Perfil(idPro, nombre, estado, usuarioI, fechaI, usuarioM, fechaM);
 
             }
             rsPA.close();
@@ -193,29 +187,27 @@ public class ProductoDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
                     e.getMessage());
         } finally {
+            accesoDatos.cerrarConexion();
         }
         return obj;
     }
 
     public void Desactivar(int idProduct, int estp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String desactivar = "";
-        desactivar = "UPDATE Producto SET Estado=" + estp + " Where id = " + idProduct;
+        desactivar = "UPDATE Perfiles SET Estado=" + estp + " Where id = " + idProduct;
         accesoDatos.ejecutaSQL(desactivar);
 
     }
 
-    public void Actualizar(Producto obj) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+    public void Actualizar(Perfil obj) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
 
         //Se crea la sentencia de actualización
         String update = "";
         try {
-            update = "UPDATE Producto SET Nombre = '" + obj.getNombreProducto()
-                    + "',Precio = " + obj.getPrecio()
-                    + ",Cantidad_Min_Compra = " + obj.getCantidadMinima()
-                    + ",Fecha_Edita = '" + obj.getFechaModificacion()
-                    + "',Id_Usu_Edita = " + obj.getUsuarioModifica()
-                    + ",Fotografia = '" + obj.getImagen()
-                    + "'where Id = " + obj.getIdProducto();
+            update = "UPDATE Perfiles SET Descripcion = '" + obj.getDescripcion()                  
+                    + "',Fecha_Edita = '" + obj.getFeEdita()
+                    + "',Id_Usu_Edita = " + obj.getIdUsuEdita()
+                    + "where Id = " + obj.getId();
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(update);
 

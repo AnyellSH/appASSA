@@ -38,6 +38,7 @@ public class ProductosBean implements Serializable {
     LinkedList<Producto> listaTablaProductos = new LinkedList<Producto>();
     LinkedList<Producto> listaTablaProductosDesactivados = new LinkedList<Producto>();
     Producto obj;
+
     int idProducto;
     String nombreProducto;
     float precio;
@@ -261,10 +262,11 @@ public class ProductosBean implements Serializable {
         pDB.Desactivar(obj.getIdProducto(), obj.getEstado());
 
         this.getListaTablaProductos();
+        this.getListaTablaProductosDesactivados();
 
     }
 
-    public void activarProducto( int idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+    public void activarProducto(int idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         ProductoDB pDB = new ProductoDB();
 
         obj = pDB.SeleccionarUno(idp);
@@ -272,6 +274,7 @@ public class ProductosBean implements Serializable {
         pDB.Desactivar(obj.getIdProducto(), obj.getEstado());
 
         this.getListaTablaProductos();
+        this.getListaTablaProductosDesactivados();
 
     }
 
@@ -306,7 +309,7 @@ public class ProductosBean implements Serializable {
 
         Producto obj = new Producto(this.getIdProducto(), this.getNombreProducto(), this.getEstado(), this.getPrecio(),
                 this.getCantidadMinima(), this.getUsuarioRegistro(), this.getFechaRegistro(),
-                this.getUsuarioModifica(), this.getFechaModificacion(), this.getImagen());
+                this.getUsuarioModifica(), this.getDate().format(now), this.getImagen());
 
         ProductoDB pDB = new ProductoDB();
 

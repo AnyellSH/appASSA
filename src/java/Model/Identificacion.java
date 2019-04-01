@@ -16,16 +16,16 @@ public class Identificacion {
     public int id;
     public String identificacion;
     public int estado;
-    public int idTipIdentificacion;
+    public Tipo_Identificacion idTipIdentificacion;
     public int idUsuRegistra;
-    public Date feRegistra;
+    public String feRegistra;
     public int idUsuEdita;
-    public Date feEdita;
+    public String feEdita;
 
     public Identificacion() {
     }
 
-    public Identificacion(int id, String identificacion, int estado, int idTipIdentificacion, int idUsuRegistra, Date feRegistra, int idUsuEdita, Date feEdita) {
+    public Identificacion(int id, String identificacion, int estado, Tipo_Identificacion idTipIdentificacion, int idUsuRegistra, String feRegistra, int idUsuEdita, String feEdita) {
         this.id = id;
         this.identificacion = identificacion;
         this.estado = estado;
@@ -60,11 +60,11 @@ public class Identificacion {
         this.estado = estado;
     }
 
-    public int getIdTipIdentificacion() {
+    public Tipo_Identificacion getIdTipIdentificacion() {
         return idTipIdentificacion;
     }
 
-    public void setIdTipIdentificacion(int idTipIdentificacion) {
+    public void setIdTipIdentificacion(Tipo_Identificacion idTipIdentificacion) {
         this.idTipIdentificacion = idTipIdentificacion;
     }
 
@@ -76,11 +76,11 @@ public class Identificacion {
         this.idUsuRegistra = idUsuRegistra;
     }
 
-    public Date getFeRegistra() {
+    public String getFeRegistra() {
         return feRegistra;
     }
 
-    public void setFeRegistra(Date feRegistra) {
+    public void setFeRegistra(String feRegistra) {
         this.feRegistra = feRegistra;
     }
 
@@ -92,11 +92,11 @@ public class Identificacion {
         this.idUsuEdita = idUsuEdita;
     }
 
-    public Date getFeEdita() {
+    public String getFeEdita() {
         return feEdita;
     }
 
-    public void setFeEdita(Date feEdita) {
+    public void setFeEdita(String feEdita) {
         this.feEdita = feEdita;
     }
     
