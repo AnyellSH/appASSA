@@ -158,7 +158,7 @@ public class Tipo_TelefonoDB {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            select = "UPDATE Tipo_Telefono set ESTADO=" + tipo.getEstado() + " where id= " + tipo.getId();
+            select = "UPDATE Tipo_Telefono set Estado=" + tipo.getEstado() + " where id= " + tipo.getId();
 
             accesoDatos.ejecutaSQL(select);
 

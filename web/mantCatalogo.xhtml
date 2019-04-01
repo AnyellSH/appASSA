@@ -98,9 +98,9 @@ and open the template in the editor.
 
                                 <h:outputLabel value="Estado: "></h:outputLabel>
                                 <h:outputLabel style="margin-left: 4%; margin-bottom: 2%" value="Activo: "></h:outputLabel>
-                                <h:selectBooleanCheckbox></h:selectBooleanCheckbox>
+                                <h:selectBooleanCheckbox value="#{productosBean.estadoV}"></h:selectBooleanCheckbox>
                                 <h:outputLabel  style="margin-left: 4%; margin-bottom: 2%" value="Inactivo: "></h:outputLabel>
-                                <h:selectBooleanCheckbox></h:selectBooleanCheckbox>
+                                <h:selectBooleanCheckbox value="#{productosBean.estadoF}"></h:selectBooleanCheckbox>
                                 <br></br>
 
                                 <h:inputFile value="#{productosBean.file}" readonly="true"></h:inputFile>

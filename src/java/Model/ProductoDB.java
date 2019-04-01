@@ -86,7 +86,9 @@ public class ProductoDB {
                 String fechaM = rsPA.getString("Fecha_Edita");
 
                 Producto pro = new Producto(idPro, nombre, estado, precio, cantidadM, usuarioI, fechaI, usuarioM, fechaM, img);
-                lista.add(pro);
+                if (pro.getEstado() == 1) {
+                    lista.add(pro);
+                }
             }
             rsPA.close();
 
@@ -143,7 +145,7 @@ public class ProductoDB {
 
     public void Desactivar(int idProduct, int estp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String desactivar = "";
-        desactivar = "UPDATE Producto SET ESTAD0=" + estp + " Where id = " + idProduct;
+        desactivar = "UPDATE Producto SET Estado=" + estp + " Where id = " + idProduct;
         accesoDatos.ejecutaSQL(desactivar);
 
     }
@@ -153,10 +155,12 @@ public class ProductoDB {
         //Se crea la sentencia de actualización
         String update = "";
         try {
-            update = "UPDATE Producto SET Nombre = '" + obj.getNombreProducto() + "',Precio = " + obj.getPrecio()
+            update = "UPDATE Producto SET Nombre = '" + obj.getNombreProducto()
+                    + "',Precio = " + obj.getPrecio()
                     + ",Cantidad_Min_Compra = " + obj.getCantidadMinima()
                     + ",Fecha_Edita = '" + obj.getFechaModificacion()
-                    + "',Id_Usu_Edita = " + obj.getUsuarioModifica() + ",Fotografia = '" + obj.getImagen()
+                    + "',Id_Usu_Edita = " + obj.getUsuarioModifica()
+                    + ",Fotografia = '" + obj.getImagen()
                     + "'where Id = " + obj.getIdProducto();
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(update);

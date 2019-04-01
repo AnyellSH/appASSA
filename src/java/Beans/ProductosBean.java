@@ -49,6 +49,8 @@ public class ProductosBean implements Serializable {
     String rutaRecibida = "";
     Part file;
     String usuarioIng;
+    Boolean estadoV;
+    Boolean estadoF;
 
     /**
      * Creates a new instance of ProductosBean
@@ -184,6 +186,22 @@ public class ProductosBean implements Serializable {
         this.date = date;
     }
 
+    public Boolean getEstadoV() {
+        return estadoV;
+    }
+
+    public void setEstadoV(Boolean estadoV) {
+        this.estadoV = estadoV;
+    }
+
+    public Boolean getEstadoF() {
+        return estadoF;
+    }
+
+    public void setEstadoF(Boolean estadoF) {
+        this.estadoF = estadoF;
+    }
+
     public void limpia() {
         this.setIdProducto(0);
         this.setNombreProducto("");
@@ -195,6 +213,7 @@ public class ProductosBean implements Serializable {
         this.setUsuarioModifica(0);
         this.setImagen("");
         this.setRutaRecibida("");
+        this.setEstadoV(false);
     }
 
     public void asignaURL() throws MessagingException, IOException {
@@ -211,7 +230,7 @@ public class ProductosBean implements Serializable {
 
     public void eliminarProducto(Producto obj) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         ProductoDB pDB = new ProductoDB();
-        pDB.Desactivar(obj.getIdProducto(), obj.getEstado());
+        pDB.Desactivar(obj.getIdProducto(), 0);
 
         this.getListaTablaProductos();
     }
@@ -244,6 +263,7 @@ public class ProductosBean implements Serializable {
         } else {
             img = this.getRutaRecibida();
         }
+
         Producto obj = new Producto(this.getIdProducto(), this.getNombreProducto(), this.getEstado(), this.getPrecio(),
                 this.getCantidadMinima(), this.getUsuarioRegistro(), this.getFechaRegistro(),
                 this.getUsuarioModifica(), this.getFechaModificacion(), this.getImagen());
@@ -258,7 +278,13 @@ public class ProductosBean implements Serializable {
     }
 
     public void agregarProducto() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
-
+        if (estadoV) {
+            estado = 1;
+        } else {
+            if (estadoF) {
+                estado = 0;
+            }
+        }
         Producto obj = new Producto(this.getIdProducto(), this.getNombreProducto(), this.getEstado(), this.getPrecio(),
                 this.getCantidadMinima(), this.getUsuarioRegistro(), this.getDate().format(now),
                 this.getUsuarioModifica(), this.getDate().format(now), this.getImagen());
