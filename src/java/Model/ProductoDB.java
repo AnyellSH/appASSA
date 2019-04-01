@@ -153,10 +153,10 @@ public class ProductoDB {
         //Se crea la sentencia de actualización
         String update = "";
         try {
-            update = "UPDATE Producto SET Nombre = '" + obj.getNombreProducto() + "', SET Precio = '" + obj.getPrecio()
-                    + " SET Cantidad_Min_Compra = " + obj.getCantidadMinima()
-                    + ", SET Fecha_Edita = '" + obj.getFechaModificacion()
-                    + "',SET Id_Usu_Edita = " + obj.getUsuarioModifica() + ",SET Fotografia = '" + obj.getImagen()
+            update = "UPDATE Producto SET Nombre = '" + obj.getNombreProducto() + "',Precio = " + obj.getPrecio()
+                    + ",Cantidad_Min_Compra = " + obj.getCantidadMinima()
+                    + ",Fecha_Edita = '" + obj.getFechaModificacion()
+                    + "',Id_Usu_Edita = " + obj.getUsuarioModifica() + ",Fotografia = '" + obj.getImagen()
                     + "'where Id = " + obj.getIdProducto();
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(update);

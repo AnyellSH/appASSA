@@ -102,11 +102,10 @@ and open the template in the editor.
                                 <h:outputLabel  style="margin-left: 4%; margin-bottom: 2%" value="Inactivo: "></h:outputLabel>
                                 <h:selectBooleanCheckbox></h:selectBooleanCheckbox>
                                 <br></br>
-                                <h:outputLabel value="Ruta Imagen: "></h:outputLabel>
-                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{productosBean.imagen}"></h:inputText> 
-                                <br></br>
-                                <h:inputFile value="#{productosBean.file}"></h:inputFile>
-                                <h:commandButton value="Agregar Archivo" action="#{productosBean.asignarURL()}"></h:commandButton>
+
+                                <h:inputFile value="#{productosBean.file}" readonly="true"></h:inputFile>
+                              
+                                <!--<h:commandButton value="Agregar Archivo" action=""></h:commandButton>-->
                                 <h:outputLabel value="#{productosBean.rutaRecibida}"></h:outputLabel>
                                 <br></br>
                                 <h:commandButton value="Actualizar" action="#{productosBean.actualizaDatos()}"></h:commandButton>
@@ -239,7 +238,7 @@ and open the template in the editor.
                 $("body").css("overflow", "hidden");
             });
 
-        // Show Overflow of Body when Everything has Loaded 
+            // Show Overflow of Body when Everything has Loaded 
             $(window).load(function () {
                 $("body").css("overflow", "visible");
                 var nice = $('html').niceScroll({

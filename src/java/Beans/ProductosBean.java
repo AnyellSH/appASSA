@@ -9,6 +9,7 @@ import DAO.AccesoDatos;
 import DAO.SNMPExceptions;
 import Model.ProductoDB;
 import Model.Producto;
+import java.io.File;
 import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -20,6 +21,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
 import javax.mail.Part;
 import javax.naming.NamingException;
 
@@ -45,7 +47,7 @@ public class ProductosBean implements Serializable {
     int usuarioModifica;
     String imagen;
     String rutaRecibida = "";
-    Part file = null;
+    Part file;
     String usuarioIng;
 
     /**
@@ -66,16 +68,6 @@ public class ProductosBean implements Serializable {
         return resultlista;
     }
 
-//    public LinkedList<Producto> getListaTablaProductos() throws SNMPExceptions, SQLException {
-//        LinkedList<Producto> lista = new LinkedList<Producto>();
-//        ProductoDB sDB = new ProductoDB();
-//
-//        lista = sDB.SeleccionaTodos();
-//
-//        LinkedList resultlista = new LinkedList();
-//        resultlista = lista;
-//        return resultlista;
-//    }
     public void setListaTablaProductos(LinkedList<Producto> listaTablaProductos) {
         this.listaTablaProductos = listaTablaProductos;
     }
@@ -192,17 +184,6 @@ public class ProductosBean implements Serializable {
         this.date = date;
     }
 
-//    public void asignaValores(Producto pro) {
-//        this.setIdProducto(pro.getIdProducto());
-//        this.setNombreProducto(pro.getNombreProducto());
-//        this.setCantidadMinima(pro.getCantidadMinima());
-//        this.setFechaRegistro(date.toString());
-//        this.setFechaModificacion(date.toString());
-//        this.setPrecio(pro.getPrecio());
-//        this.setUsuarioRegistro(pro.getUsuarioRegistra());
-//        this.setUsuarioModifica(pro.getUsuarioModifica());
-//        this.setImagen(pro.getImagen());
-//    }
     public void limpia() {
         this.setIdProducto(0);
         this.setNombreProducto("");
@@ -216,32 +197,18 @@ public class ProductosBean implements Serializable {
         this.setRutaRecibida("");
     }
 
-    /**
-     * public void guardarImagenRutaEsp() throws IOException { File f = null;
-     * String im = this.getFile().getName()+".jpg";
-     *
-     * try{ InputStream input = this.getFile().getInputStream(); f = new
-     * File("C:/Users/Kim
-     * Sánchez/Documents/NetBeansProjects/ProyectoPrograWeb/web/img/"+im);
-     *
-     * if(!f.exists()){ f.createNewFile(); } FileOutputStream output = new
-     * FileOutputStream(f); byte[] buffer = new byte[1024]; int length;
-     * while((length = input.read(buffer)) > 0){ output.write(buffer,0,length);
-     * } input.close(); output.close(); } catch(Exception e){
-     * e.printStackTrace(System.out); }
-     *
-     * this.setRutaRecibida("../img/"+im);
-     *
-     * }
-     */
-//   public void asignaURL() {
-//
-//        String i = this.getFile().getSubmittedFileName();
-//        if (this.getImagen().equals("")) {
-//            this.setImagen("../img/" + i);
-//        }
-//        this.setRutaRecibida("../img/" + i);
-//    }
+    public void asignaURL() throws MessagingException, IOException {
+
+        imagen = file.toString();
+        String i = file.getFileName();
+//        i = this.getFile().getFileName();
+
+        if (this.getImagen().equals("")) {
+            this.setImagen("../img/" + i);
+        }
+        this.setRutaRecibida("../img/" + i);
+    }
+
     public void eliminarProducto(Producto obj) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         ProductoDB pDB = new ProductoDB();
         pDB.Desactivar(obj.getIdProducto(), obj.getEstado());
@@ -277,13 +244,13 @@ public class ProductosBean implements Serializable {
         } else {
             img = this.getRutaRecibida();
         }
-        Producto p = new Producto(this.getIdProducto(), this.getNombreProducto(), this.getEstado(), this.getPrecio(),
+        Producto obj = new Producto(this.getIdProducto(), this.getNombreProducto(), this.getEstado(), this.getPrecio(),
                 this.getCantidadMinima(), this.getUsuarioRegistro(), this.getFechaRegistro(),
                 this.getUsuarioModifica(), this.getFechaModificacion(), this.getImagen());
 
         ProductoDB pDB = new ProductoDB();
 
-        pDB.Actualizar(p);
+        pDB.Actualizar(obj);
 
         this.limpia();
         this.getListaTablaProductos();
@@ -304,16 +271,6 @@ public class ProductosBean implements Serializable {
         this.getListaTablaProductos();
     }
 
-    public void selecionarTodos() throws SNMPExceptions, SQLException {
-        ProductoDB sDB = new ProductoDB();
-//
-        listaTablaProductos = sDB.SeleccionaTodos();
-//
-//        LinkedList resultlista = new LinkedList();
-//        resultlista = lista;
-
-    }
-
     public void cierraSesion() throws IOException {
 
         final ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -321,4 +278,15 @@ public class ProductosBean implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
 
+    public void asignaValores(Producto pro) {
+        this.setIdProducto(pro.getIdProducto());
+        this.setNombreProducto(pro.getNombreProducto());
+        this.setCantidadMinima(pro.getCantidadMinima());
+//        this.setFechaRegistro(date.toString());
+        this.setFechaModificacion(this.getDate().format(now));
+        this.setPrecio(pro.getPrecio());
+//        this.setUsuarioRegistro(pro.getUsuarioRegistra());
+        this.setUsuarioModifica(pro.getUsuarioModifica());
+        this.setImagen(pro.getImagen());
+    }
 }
