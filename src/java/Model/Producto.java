@@ -37,8 +37,8 @@ public class Producto {
         this.imagen = imagen;
     }
 
-    Producto() {
-        super();
+    public Producto() {
+       
     }
 
     Producto(int idPro, String nombre, int estadop, float precio, int cantidadE, int cantidadM, String descripcion, String fechaI, String fechaM, int usuarioI, int usuarioM, int idCat, String img) {

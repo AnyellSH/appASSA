@@ -105,6 +105,60 @@ public class ProductoDB {
         return lista;
     }
 
+     public LinkedList<Producto> SeleccionaTodosDesactivados() throws SNMPExceptions, SQLException {
+        String select = "";
+
+        LinkedList<Producto> lista = new LinkedList<Producto>();
+
+        try {
+            AccesoDatos accesoDatos = new AccesoDatos();
+            //Se instancia la clase de acceso a datos
+//            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de búsqueda
+            select
+                    = "SELECT Id,Nombre,Cantidad_Min_Compra,Precio,"
+                    + "Fotografia,Estado,"
+                    + "Id_Usu_Registra, Fecha_Registra,"
+                    + "Id_Usu_Edita,Fecha_Edita "
+                    + "from dbo.Producto";
+
+            //Se ejecuta la sentencia SQL
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //Se llena el arryaList con los catálogos   
+            while (rsPA.next()) {
+
+                int idPro = rsPA.getInt("id");
+                String nombre = rsPA.getString("Nombre");
+                int cantidadM = rsPA.getInt("Cantidad_Min_Compra");
+                float precio = rsPA.getFloat("Precio");
+                String img = rsPA.getString("Fotografia");
+                int estado = rsPA.getInt("Estado");
+
+                int usuarioI = rsPA.getInt("Id_Usu_Registra");
+                String fechaI = rsPA.getString("Fecha_Registra");
+                int usuarioM = rsPA.getInt("Id_Usu_Edita");
+                String fechaM = rsPA.getString("Fecha_Edita");
+
+                Producto pro = new Producto(idPro, nombre, estado, precio, cantidadM, usuarioI, fechaI, usuarioM, fechaM, img);
+                if (pro.getEstado() == 0) {
+                    lista.add(pro);
+                }
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage());
+        } finally {
+
+        }
+
+        return lista;
+    }
     public Producto SeleccionarUno(int idProduct) throws SNMPExceptions, SQLException {
 
         String select = "";

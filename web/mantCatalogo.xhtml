@@ -80,7 +80,7 @@ and open the template in the editor.
 
                             <!--================ INICIA AREA DE CREACION DEL PRODUCTO =================-->
                             <div style="width: 90%"> 
-                                <p style="font-size: 1.2em">Actualizacion o Creacion de Producto</p>
+                                <p style="font-size: 1.2em">Ingresar Productos</p>
                                 <br></br>
                                 <br></br>
                                 <h:outputLabel value="Codigo producto: "></h:outputLabel>
@@ -117,13 +117,15 @@ and open the template in the editor.
                             </div>
                             <br></br>
                             <br></br>
+                            
+                            <h2>Productos Activos </h2>
                             <div class="datagrid">
                                 <h:dataTable value="#{productosBean.listaTablaProductos}" var="producc" style="text-align: center">
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Numero Producto"></h:outputText>
                                         </f:facet>
-                                        <h:outputText value="#{producc.idProducto}"></h:outputText>
+                                        <h:outputText value="#{producccc.idProducto}"></h:outputText>
                                     </h:column>
 
                                     <h:column>
@@ -163,6 +165,31 @@ and open the template in the editor.
                             </div> 
                             <br></br>
                             <br></br>
+                            <h2>Productos Inactivos </h2>
+                            <div class="datagrid">
+                                <h:dataTable value="#{productosBean.listaTablaProductosDesactivados}" var="invativos" style="text-align: center">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Numero Producto"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="#{invativos.idProducto}"></h:outputText>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header" >
+                                            <h:outputText value="Nombre Producto" ></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="#{invativos.nombreProducto}"></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Restableces Producto"></h:outputText>
+                                        </f:facet>
+                                        <h:commandButton value="Restablecer" actionListener="#{productosBean.activarProducto(invativos.idProducto)}" ></h:commandButton>
+                                    </h:column>
+                                </h:dataTable>
+                            </div> 
+                            
                         </h:form>
 
                     </div>				

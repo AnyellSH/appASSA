@@ -153,10 +153,10 @@ public class Tipo_Perfil_EmpleadoDB {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            update = "Update Tipo_Perfil_Empleado set Descripcion='" + Obj.getDescripcion()
-                    + "',Set Id_Usu_Edita =" + Obj.getIdUsuEdita()
-                    + ",Set Fecha_Edita =" + Obj.getFeEdita()
-                    + "where id= " + Obj.getId();
+            update = "Update Tipo_Perfil_Empleado Set Descripcion='" + Obj.getDescripcion()
+                    + "',Id_Usu_Edita =" + Obj.getIdUsuEdita()
+                    + ",Fecha_Edita ='" + Obj.getFeEdita()
+                    + "'where id= " + Obj.getId();
 
             accesoDatos.ejecutaSQL(update);
 

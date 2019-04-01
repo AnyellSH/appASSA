@@ -36,6 +36,8 @@ public class ProductosBean implements Serializable {
     SimpleDateFormat date = null;
     Date now = new Date(System.currentTimeMillis());
     LinkedList<Producto> listaTablaProductos = new LinkedList<Producto>();
+    LinkedList<Producto> listaTablaProductosDesactivados = new LinkedList<Producto>();
+    Producto obj;
     int idProducto;
     String nombreProducto;
     float precio;
@@ -202,6 +204,29 @@ public class ProductosBean implements Serializable {
         this.estadoF = estadoF;
     }
 
+    public LinkedList<Producto> getListaTablaProductosDesactivados() throws SNMPExceptions, SQLException {
+        LinkedList<Producto> lista = new LinkedList<Producto>();
+        ProductoDB sDB = new ProductoDB();
+
+        lista = sDB.SeleccionaTodosDesactivados();
+
+        LinkedList resultlista = new LinkedList();
+        resultlista = lista;
+        return resultlista;
+    }
+
+    public void setListaTablaProductosDesactivados(LinkedList<Producto> listaTablaProductosDesactivados) {
+        this.listaTablaProductosDesactivados = listaTablaProductosDesactivados;
+    }
+
+    public Producto getObj() {
+        return obj;
+    }
+
+    public void setObj(Producto obj) {
+        this.obj = obj;
+    }
+
     public void limpia() {
         this.setIdProducto(0);
         this.setNombreProducto("");
@@ -230,9 +255,24 @@ public class ProductosBean implements Serializable {
 
     public void eliminarProducto(Producto obj) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         ProductoDB pDB = new ProductoDB();
-        pDB.Desactivar(obj.getIdProducto(), 0);
+        if (obj.estado == 1) {
+            obj.estado = 0;
+        }
+        pDB.Desactivar(obj.getIdProducto(), obj.getEstado());
 
         this.getListaTablaProductos();
+
+    }
+
+    public void activarProducto( int idp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+        ProductoDB pDB = new ProductoDB();
+
+        obj = pDB.SeleccionarUno(idp);
+        obj.estado = 1;
+        pDB.Desactivar(obj.getIdProducto(), obj.getEstado());
+
+        this.getListaTablaProductos();
+
     }
 
     public void consultarSesion() {
