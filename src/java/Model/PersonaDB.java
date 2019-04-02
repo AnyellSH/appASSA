@@ -72,9 +72,9 @@ public class PersonaDB {
 
                 int idPro = rsPA.getInt("id");
                 String nombre = rsPA.getString("Nombre");
-                String p_Apellido = rsPA.getString("Primer apellido");
-                String s_Apellido = rsPA.getString("Segundo apellido");
-                String contrasenna = rsPA.getString("Contraseña");
+                String p_Apellido = rsPA.getString("P_Apellido");
+                String s_Apellido = rsPA.getString("S_Apellido");
+                String contrasenna = rsPA.getString("Contrasnna");
 
                 int idIdentificacion = rsPA.getInt("id_Identificacion");
                 int usuarioI = rsPA.getInt("Id_Usu_Registra");
@@ -82,10 +82,7 @@ public class PersonaDB {
                 int usuarioM = rsPA.getInt("Id_Usu_Edita");
                 String fechaM = rsPA.getString("Fecha_Edita");
 
-                Persona per = new Persona(idPro, nombre, p_Apellido, s_Apellido, contrasenna, idIdentificacion, usuarioI, fechaI, usuarioM, fechaM,);
-                if (per.getEstado() == 1) {
-                    lista.add(per);
-                }
+                Persona per = new Persona(idPro, nombre, p_Apellido, s_Apellido, contrasenna, idIdentificacion, usuarioI, fechaI, usuarioM, fechaM);
             }
             rsPA.close();
 
@@ -127,9 +124,9 @@ public class PersonaDB {
 
                 int idPro = rsPA.getInt("id");
                 String nombre = rsPA.getString("Nombre");
-                String p_Apellido = rsPA.getString("Primer apellido");
-                String s_Apellido = rsPA.getString("Segundo apellido");
-                String contrasenna = rsPA.getString("Contraseña");
+                String p_Apellido = rsPA.getString("P_Apellido");
+                String s_Apellido = rsPA.getString("S_Apellido");
+                String contrasenna = rsPA.getString("Contrasnna");
 
                 int idIdentificacion = rsPA.getInt("id_Identificacion");
                 int usuarioI = rsPA.getInt("Id_Usu_Registra");
@@ -137,10 +134,8 @@ public class PersonaDB {
                 int usuarioM = rsPA.getInt("Id_Usu_Edita");
                 String fechaM = rsPA.getString("Fecha_Edita");
 
-                Persona per = new Persona(idPro, nombre, p_Apellido, s_Apellido, contrasenna, idIdentificacion, usuarioI, fechaI, usuarioM, fechaM,);
-                if (per.getEstado() == 1) {
-                    lista.add(per);
-                }
+                Persona per = new Persona(idPro, nombre, p_Apellido, s_Apellido, contrasenna, idIdentificacion, usuarioI, fechaI, usuarioM, fechaM);
+               
             }
             rsPA.close();
 
@@ -168,9 +163,9 @@ public class PersonaDB {
             while (rsPA.next()) {
                int idPro = rsPA.getInt("id");
                 String nombre = rsPA.getString("Nombre");
-                String p_Apellido = rsPA.getString("Primer apellido");
-                String s_Apellido = rsPA.getString("Segundo apellido");
-                String contrasenna = rsPA.getString("Contraseña");
+                String p_Apellido = rsPA.getString("P_Apellido");
+                String s_Apellido = rsPA.getString("S_Apellido");
+                String contrasenna = rsPA.getString("Contrasnna");
 
                 int idIdentificacion = rsPA.getInt("id_Identificacion");
                 int usuarioI = rsPA.getInt("Id_Usu_Registra");
@@ -178,7 +173,7 @@ public class PersonaDB {
                 int usuarioM = rsPA.getInt("Id_Usu_Edita");
                 String fechaM = rsPA.getString("Fecha_Edita");
 
-                obj= new Persona (idPro, nombre, p_Apellido, s_Apellido, contrasenna, idIdentificacion, usuarioI, fechaI, usuarioM, fechaM,);
+                obj= new Persona (idPro, nombre, p_Apellido, s_Apellido, contrasenna, idIdentificacion, usuarioI, fechaI, usuarioM, fechaM);
 
             }
             rsPA.close();
