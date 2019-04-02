@@ -102,10 +102,10 @@ public class PersonaDB {
         return lista;
     }
       
-      public LinkedList<Producto> SeleccionaTodosDesactivados() throws SNMPExceptions, SQLException {
+      public LinkedList<Persona> SeleccionaTodosDesactivados() throws SNMPExceptions, SQLException {
         String select = "";
 
-        LinkedList<Producto> lista = new LinkedList<Producto>();
+        LinkedList<Persona> lista = new LinkedList<Persona>();
 
         try {
             AccesoDatos accesoDatos = new AccesoDatos();
