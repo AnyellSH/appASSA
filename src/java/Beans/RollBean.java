@@ -203,10 +203,11 @@ public class RollBean implements Serializable {
                 RDB.Actualizar(obj);
             }
 
-            this.Limpiar();
             this.getListaActivos();
         } catch (Exception e) {
             e.toString();
+        } finally {
+            this.Limpiar();
         }
     }
 
@@ -232,20 +233,21 @@ public class RollBean implements Serializable {
     }
 
     /*TABLA DE PERFILES ACTIVOS*/
-    public void Activo(Roll roll) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+    public void Activo(int idp, int estado) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
 
-        RDB.Desactivar(roll);
+        RDB.Desactivar(idp, estado);
         this.getListaActivos();
         this.getListaInactivos();
-
+        this.Limpiar();
     }
 
     /*TABLA DE PERFILES INACTIVOS*/
-    public void Inactivo(Roll roll) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+    public void Inactivo(int idp, int estado) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
 
-        RDB.Desactivar(roll);
+        RDB.Desactivar(idp, estado);
         this.getListaActivos();
         this.getListaInactivos();
+        this.Limpiar();
 
     }
 
@@ -253,5 +255,6 @@ public class RollBean implements Serializable {
     public void asignaValores(Roll obj) {
         this.setId(obj.getId());
         this.setDescripcion(obj.getDescripcion());
+
     }
 }

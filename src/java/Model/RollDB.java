@@ -40,8 +40,8 @@ public class RollDB {
             AccesoDatos accesoDatos = new AccesoDatos();
 
             select = "Select Id, Estado, Descripcion,"
-                    + "Id_Usu_Registra, Fecha_Registra, Id_Usu_Edita,Fecha_Edita"
-                    + "from Roll";
+                    + "Id_Usu_Registra, Fecha_Registra, Id_Usu_Edita,Fecha_Edita "
+                    + " from Roll";
 
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
 
@@ -58,7 +58,9 @@ public class RollDB {
 
                 Roll Obj = new Roll(id, decrip, est, idUsuRegistra, feRegistra, idUsuEdita, feEdita);
 
-                otraLista.add(Obj);
+                if (Obj.estado ==1) {
+                    otraLista.add(Obj);
+                }
 
             }
             rsPA.close();
@@ -83,7 +85,7 @@ public class RollDB {
             AccesoDatos accesoDatos = new AccesoDatos();
 
             select = "Select Id, Estado, Descripcion,"
-                    + "Id_Usu_Registra, Fecha_Registra, Id_Usu_Edita,Fecha_Edita"
+                    + "Id_Usu_Registra, Fecha_Registra, Id_Usu_Edita,Fecha_Edita "
                     + "from Roll where id = " + idp;
 
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
@@ -116,7 +118,7 @@ public class RollDB {
     }
 
     /*SELECCIONAR TODOS LOS DESACTIVADOS*/
-    public LinkedList<Roll> SeleccionaTodosDesactivados() throws SNMPExceptions, SQLException {
+    public LinkedList<Roll> SeleccionaTodosDesactivados() throws SNMPExceptions, SQLException   {
         String select = "";
 
         LinkedList<Roll> lista = new LinkedList<Roll>();
@@ -177,7 +179,7 @@ public class RollDB {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            insert = "INSER INTO ROLL(Id, Estado, Descripcion, Id_Usu_Registra, Fecha_Registra, Id_Usu_Edita,Fecha_Edita)"
+            insert = "INSERT INTO ROLL(Id, Estado, Descripcion, Id_Usu_Registra, Fecha_Registra, Id_Usu_Edita,Fecha_Edita)"
                     + "VALUES (" + roll.getId()
                     + "," + roll.getEstado() + ",'"
                     + roll.getDescripcion() + "',"
@@ -208,7 +210,7 @@ public class RollDB {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            select = "Update Roll set Decripcion = '" + roll.getDescripcion()
+            select = "Update dbo.ROLL SET Descripcion = '" + roll.getDescripcion()
                     + "',Id_Usu_Edita =" + roll.getIdUsuEdita()
                     + ",Fecha_Edita = '" + roll.getFeEdita()
                     + "' where id = " + roll.getId();
@@ -227,7 +229,7 @@ public class RollDB {
     }
 
     /*DESACTIVAR UNO DE LA TABLA POR ID*/
-    public void Desactivar(Roll roll) throws SNMPExceptions, SQLException {
+    public void Desactivar(int idp, int estp) throws SNMPExceptions, SQLException {
 
         LinkedList<Telefono> otraLista = new LinkedList<Telefono>();
         String select = "";
@@ -235,7 +237,7 @@ public class RollDB {
 
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            select = "Update Roll set estado=" + roll.getEstado() + " where id= " + roll.getId();
+            select = "Update Roll set estado=" + estp + " where id= " + idp;
             accesoDatos.ejecutaSQL(select);
 
         } catch (SQLException e) {

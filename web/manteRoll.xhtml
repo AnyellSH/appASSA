@@ -96,6 +96,7 @@ and open the template in the editor.
                             </div>
                             <br></br>
                             <br></br>
+                            <h2>Rolles Activos</h2>
                             <div class="datagrid">
                                 <h:dataTable value="#{rollBean.listaActivos}" var="roll" style="text-align: center">
                                     <h:column>
@@ -114,27 +115,55 @@ and open the template in the editor.
 
                                     <h:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Fecha de Registro"></h:outputText>
+                                            <h:outputText value="Fecha y Hora de Registro"></h:outputText>
                                         </f:facet>
-                                        <h:outputText value=""></h:outputText>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Estado"></h:outputText>
-                                        </f:facet>
-                                        <h:outputText value=""></h:outputText>
-                                    </h:column>
+                                        <h:outputText value="#{roll.feRegistra}"></h:outputText>
+                                    </h:column>                                    
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Editar Roll"></h:outputText>
                                         </f:facet>
-                                        <h:commandButton value="Editar" ></h:commandButton>
+                                        <h:commandButton value="Editar" action="#{rollBean.asignaValores(roll)}"></h:commandButton>
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Eliminar Roll"></h:outputText>
                                         </f:facet>
-                                        <h:commandButton value="Eliminar" ></h:commandButton>
+                                        <h:commandButton value="Eliminar" action="#{rollBean.Activo(roll.id, 0)}"></h:commandButton>
+                                    </h:column>
+                                </h:dataTable>
+                            </div> 
+                             <br></br>
+                            <br></br>
+                            <h2>Rolles Inactivos</h2>
+                            <div class="datagrid">
+                                <h:dataTable value="#{rollBean.listaInactivos}" var="rollI" style="text-align: center">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Codigo"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="#{rollI.id}"></h:outputText>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Descripcion"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="#{rollI.descripcion}"></h:outputText>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Fecha y Hora de Modificación"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="#{rollI.feEdita}"></h:outputText>
+                                    </h:column>                                   
+                                  
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Restableser Roll"></h:outputText>
+                                        </f:facet>
+                                        <h:commandButton value="Restableser" action="#{rollBean.Inactivo(rollI.id, 1)}"></h:commandButton>
                                     </h:column>
                                 </h:dataTable>
                             </div> 
