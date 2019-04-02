@@ -151,13 +151,13 @@ public class PersonaDB {
 
         return lista;
     }
-      public Producto SeleccionarUno(int idProduct) throws SNMPExceptions, SQLException {
+      public Persona SeleccionarUno(int idPer) throws SNMPExceptions, SQLException {
 
         String select = "";
-        Producto obj = null;
+        Persona obj = null;
         try {
 
-            select = "Select * from Producto where Id =" + idProduct;
+            select = "Select * from Persona where Id =" + idPer;
             //Se ejecuta la sentencia SQL
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             while (rsPA.next()) {
