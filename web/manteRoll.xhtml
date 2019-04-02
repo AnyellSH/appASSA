@@ -9,7 +9,7 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-     <h:head>
+    <h:head>
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'></link>
         <link rel="stylesheet" type="text/css" href="../css2/normalize.css"></link>
         <link rel="stylesheet" type="text/css"  href="../css2/main.css"></link>
@@ -22,226 +22,212 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-           <div id="loader-wrapper">
+        <div id="loader-wrapper">
             <div class="logo"></div>
             <div id="loader">
             </div>
         </div>
         <!-- end preloader -->
-		
-<!-- COMIENZA EL HEADER -->
-<header class="main_menu_sec navbar navbar-default navbar-fixed-top">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-3 col-md-3 col-sm-12">
-				<div class="lft_hd">
-					<a href="PaginaAdmin.xhtml"><img src="../img/logoassa.png" alt=""/></a>
-				</div>
-			</div>			
-			<div class="col-lg-9 col-md-9 col-sm-12">
-				<div class="rgt_hd">					
-					<div class="main_menu">
-						<nav id="nav_menu">
-							<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							</button>	
-						<div id="navbar">
-							<ul>
-                                                            <h:form>
-                                                                    <li><h:commandLink value="Cerrar Sesion"></h:commandLink></li>
-                                                                </h:form>
-							</ul>
-						</div>	
-						</nav>			
-					</div>					
-						
-				</div>
-			</div>	
-		</div>	
-	</div>	
-</header>
-<!-- TERMINA EL HEADER -->
-<br></br>
-<section id="abt_sec">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs12 ">
-                <div class="title_sec">
-                    <h1>Roll de Usuario</h1>
 
-                </div>
+        <!-- COMIENZA EL HEADER -->
+        <header class="main_menu_sec navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-12">
+                        <div class="lft_hd">
+                            <a href="PaginaAdmin.xhtml"><img src="../img/logoassa.png" alt=""/></a>
+                        </div>
+                    </div>			
+                    <div class="col-lg-9 col-md-9 col-sm-12">
+                        <div class="rgt_hd">					
+                            <div class="main_menu">
+                                <nav id="nav_menu">
+                                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>	
+                                    <div id="navbar">
+                                        <ul>
+                                            <h:form>
+                                                <li><h:commandLink value="Cerrar Sesion"></h:commandLink></li>
+                                            </h:form>
+                                        </ul>
+                                    </div>	
+                                </nav>			
+                            </div>					
 
-                <h:form>
+                        </div>
+                    </div>	
+                </div>	
+            </div>	
+        </header>
+        <!-- TERMINA EL HEADER -->
+        <br></br>
+        <section id="abt_sec">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs12 ">
+                        <div class="title_sec">
+                            <h1>Roll de Usuario</h1>
 
-                    <div style="width: 90%"> 
-                        <br></br>
-                        <h:outputLabel value="Codigo: "></h:outputLabel>
-                        <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
-                        <br></br>
-                        <h:outputLabel value="Descripcion: "></h:outputLabel>
-                        <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
-                        <br></br>
-                        <h:outputLabel value="Estado: "></h:outputLabel>
-                        <h:outputLabel style="margin-left: 4%; margin-bottom: 2%" value="Activo: "></h:outputLabel>
-                        <h:selectBooleanCheckbox></h:selectBooleanCheckbox>
-                        <h:outputLabel  style="margin-left: 4%; margin-bottom: 2%" value="Inactivo: "></h:outputLabel>
-                        <h:selectBooleanCheckbox></h:selectBooleanCheckbox>
-                        <br></br>
-                       
-                        <h:outputLabel value="Codigo de Usuario registradror: "></h:outputLabel>
-                        <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
-                        <br></br>
-                        <h:outputLabel value="Fecha de Registro: "></h:outputLabel>
-                     
-                        <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
-                            <br></br>
-                        <h:outputLabel value="Codigo de Usuario modificador: "></h:outputLabel>
-                        <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
-                        <br></br>
-                            <h:outputLabel value="Fecha de Modificacion: "></h:outputLabel>
-                            <h:inputText style="margin-left: 4%; margin-bottom: 2%" value=""></h:inputText>
-                            <br></br>
-                            <br></br>
-                      
-                            <h:commandButton value="CREAR ROLL DE USUARIO" ></h:commandButton>
-                           
+                        </div>
+
+                        <h:form>
+
+                            <div style="width: 90%"> 
+                                <br></br>
+                                <h:outputLabel value="Codigo: "></h:outputLabel>
+                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{rollBean.id}"></h:inputText>
+                                <br></br>
+                                <h:outputLabel value="Descripcion: "></h:outputLabel>
+                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{rollBean.descripcion}"></h:inputText>
+                                <br></br>
+                                <h:outputLabel value="Estado: "></h:outputLabel>
+                                <h:outputLabel style="margin-left: 4%; margin-bottom: 2%" value="Activo: "></h:outputLabel>
+                                <h:selectBooleanCheckbox value="#{rollBean.estadoV}"></h:selectBooleanCheckbox>
+                                <h:outputLabel  style="margin-left: 4%; margin-bottom: 2%" value="Inactivo: "></h:outputLabel>
+                                <h:selectBooleanCheckbox value="#{rollBean.estadoF}"></h:selectBooleanCheckbox>
+                                <br></br>
+                                <br></br>
+
+                                <h:commandButton value="GUARDAR" action="#{rollBean.Guardar()}"></h:commandButton>
+
                             </div>
-                    <br></br>
-                    <br></br>
-                    <div class="datagrid">
-                                <h:dataTable value="" var="roll" style="text-align: center">
-                            <h:column>
-                                <f:facet name="header">
-                                <h:outputText value="Codigo"></h:outputText>
-                                </f:facet>
-                                <h:outputText value=""></h:outputText>
-                            </h:column>
-                                
-                            <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Descripcion"></h:outputText>
-                            </f:facet>
-                                <h:outputText value=""></h:outputText>
-                            </h:column>
-                                
-                            <h:column>
-                            <f:facet name="header">
-                            <h:outputText value="Fecha de Registro"></h:outputText>
-                            </f:facet>
-                                <h:outputText value=""></h:outputText>
-                            </h:column>
-                           <h:column>
-                            <f:facet name="header">
-                            <h:outputText value="Estado"></h:outputText>
-                            </f:facet>
-                                <h:outputText value=""></h:outputText>
-                            </h:column>
-                            <h:column>
-                            <f:facet name="header">
-                            <h:outputText value="Editar Roll"></h:outputText>
-                            </f:facet>
-                                <h:commandButton value="Editar" ></h:commandButton>
-                            </h:column>
-                            <h:column>
-                            <f:facet name="header">
-                            <h:outputText value="Eliminar Roll"></h:outputText>
-                            </f:facet>
-                                <h:commandButton value="Eliminar" ></h:commandButton>
-                            </h:column>
-                        </h:dataTable>
-                           </div> 
+                            <br></br>
+                            <br></br>
+                            <div class="datagrid">
+                                <h:dataTable value="#{rollBean.listaActivos}" var="roll" style="text-align: center">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Codigo"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="#{roll.id}"></h:outputText>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Descripcion"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value="#{roll.descripcion}"></h:outputText>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Fecha de Registro"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value=""></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Estado"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText value=""></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Editar Roll"></h:outputText>
+                                        </f:facet>
+                                        <h:commandButton value="Editar" ></h:commandButton>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Eliminar Roll"></h:outputText>
+                                        </f:facet>
+                                        <h:commandButton value="Eliminar" ></h:commandButton>
+                                    </h:column>
+                                </h:dataTable>
+                            </div> 
                         </h:form>
-                         
-			</div>				
-		</div>
-	</div>
-</section>
+
+                    </div>				
+                </div>
+            </div>
+        </section>
 
 
 
-<!--EMPIEZA FOOTER -->
-<footer id="ft_sec">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				
-				<ul class="copy_right">
-                                    <li>&#169;ASSA 2019</li>
-                                </ul>					
-			</div>	
-		</div>
-	</div>
-</footer>
-<!-- FINALIZA FOOTER -->
+        <!--EMPIEZA FOOTER -->
+        <footer id="ft_sec">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
 
-<!-- AREA DE SCRIPTS -->
+                        <ul class="copy_right">
+                            <li>&#169;ASSA 2019</li>
+                        </ul>					
+                    </div>	
+                </div>
+            </div>
+        </footer>
+        <!-- FINALIZA FOOTER -->
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <!-- AREA DE SCRIPTS -->
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script src="../JS/vendor/jquery-1.11.2.min.js"></script>
 
-<script src="../JS/isotope.pkgd.min.js"></script>
-<script src="../JS/bootstrap.min.js"></script>
-<script src="../JS/jquery-ui.js"></script>
-<script src="../JS/appear.js"></script>
-<script src="../JS/jquery.counterup.min.js"></script>
-<script src="../JS/waypoints.min.js"></script>
-<script src="../JS/owl.carousel.min.js"></script>
-<script src="../JS/showHide.js"></script>
-<script src="../JS/jquery.nicescroll.min.js"></script>
-<script src="../JS/jquery.easing.min.js"></script>
-<script src="../JS/scrolling-nav.js"></script>
-<script src="../JS/plugins.js"></script>
-<script src="../JS/main.js"></script>
-<script src="showHide.js" type="text/javascript"></script>
-<script type="text/javascript">
+        <script src="../JS/isotope.pkgd.min.js"></script>
+        <script src="../JS/bootstrap.min.js"></script>
+        <script src="../JS/jquery-ui.js"></script>
+        <script src="../JS/appear.js"></script>
+        <script src="../JS/jquery.counterup.min.js"></script>
+        <script src="../JS/waypoints.min.js"></script>
+        <script src="../JS/owl.carousel.min.js"></script>
+        <script src="../JS/showHide.js"></script>
+        <script src="../JS/jquery.nicescroll.min.js"></script>
+        <script src="../JS/jquery.easing.min.js"></script>
+        <script src="../JS/scrolling-nav.js"></script>
+        <script src="../JS/plugins.js"></script>
+        <script src="../JS/main.js"></script>
+        <script src="showHide.js" type="text/javascript"></script>
+        <script type="text/javascript">
 
-$(document).ready(function(){
-
-
-   $('.show_hide').showHide({			 
-		speed: 1000,  // speed you want the toggle to happen	
-		easing: '',  // the animation effect you want. Remove this line if you dont want an effect and if you haven't included jQuery UI
-		changeText: 1, // if you dont want the button text to change, set this to 0
-		showText: 'View',// the button text to show when a div is closed
-		hideText: 'Close' // the button text to show when a div is open
-					 
-	}); 
+            $(document).ready(function () {
 
 
-});
+                $('.show_hide').showHide({
+                    speed: 1000, // speed you want the toggle to happen	
+                    easing: '', // the animation effect you want. Remove this line if you dont want an effect and if you haven't included jQuery UI
+                    changeText: 1, // if you dont want the button text to change, set this to 0
+                    showText: 'View', // the button text to show when a div is closed
+                    hideText: 'Close' // the button text to show when a div is open
 
-</script>
-<script>
-    jQuery(document).ready(function( $ ) {
-        $('.counter').counterUp({
-            delay: 10,
-            time: 1000
-        });
-    });
-</script>
+                });
 
-<script>
 
-  //Hide Overflow of Body on DOM Ready //
-$(document).ready(function(){
-    $("body").css("overflow", "hidden");
-});
+            });
 
-// Show Overflow of Body when Everything has Loaded 
-$(window).load(function(){
-    $("body").css("overflow", "visible");        
-    var nice=$('html').niceScroll({
-	cursorborder:"5",
-	cursorcolor:"#00AFF0",
-	cursorwidth:"3px",
-	boxzoom:true, 
-	autohidemode:true
-	});
+        </script>
+        <script>
+            jQuery(document).ready(function ($) {
+                $('.counter').counterUp({
+                    delay: 10,
+                    time: 1000
+                });
+            });
+        </script>
 
-});
-</script>
-<!--TERMINA AREA DE SCRIPTS -->
+        <script>
+
+            //Hide Overflow of Body on DOM Ready //
+            $(document).ready(function () {
+                $("body").css("overflow", "hidden");
+            });
+
+        // Show Overflow of Body when Everything has Loaded 
+            $(window).load(function () {
+                $("body").css("overflow", "visible");
+                var nice = $('html').niceScroll({
+                    cursorborder: "5",
+                    cursorcolor: "#00AFF0",
+                    cursorwidth: "3px",
+                    boxzoom: true,
+                    autohidemode: true
+                });
+
+            });
+        </script>
+        <!--TERMINA AREA DE SCRIPTS -->
     </h:body>
 </html>

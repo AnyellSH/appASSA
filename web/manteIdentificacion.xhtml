@@ -89,20 +89,20 @@ and open the template in the editor.
                                 <br></br> 
                                 -->
                                 <h:outputLabel value="Identificacion: "></h:outputLabel>
-                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" ></h:inputText>
+                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{identificacionBean.identificacion}" ></h:inputText>
                                 <br></br>
                                 <h:outputLabel value="Tipo de Identificacion: "></h:outputLabel>
                                 <h:selectOneMenu style="margin-left: 4%; margin-bottom: 2%"  onchange="submit()">
-                                    <f:selectItems value="#{identificacionBean.listatip_Identi}" ></f:selectItems>
+                                    <f:selectItems value="#{identificacionBean.listatip_Identi}" itemDisabled="Descripcion"></f:selectItems>
                                 </h:selectOneMenu>
                                 <br></br>
                                 <h:outputLabel value="Estado: "></h:outputLabel>
                                 <h:outputLabel style="margin-left: 4%; margin-bottom: 2%" value="Activo: "></h:outputLabel>
-                                <h:selectBooleanCheckbox style="margin-left: 4%; margin-bottom: 2%" ></h:selectBooleanCheckbox>
+                                <h:selectBooleanCheckbox style="margin-left: 4%; margin-bottom: 2%" value="#{identificacionBean.estadoV}"></h:selectBooleanCheckbox>
                                 <h:outputLabel  style="margin-left: 4%; margin-bottom: 2%" value="Inactivo: "></h:outputLabel>
-                                <h:selectBooleanCheckbox style="margin-left: 4%; margin-bottom: 2%" ></h:selectBooleanCheckbox>
+                                <h:selectBooleanCheckbox style="margin-left: 4%; margin-bottom: 2%" value="#{identificacionBean.estadoF}" ></h:selectBooleanCheckbox>
                                 <br></br>           
-                                <h:commandButton value="GUARDAR" action="#{identificacionBean.Guardar()}"></h:commandButton>
+                                <h:commandButton value="GUARDAR" actionListener="#{identificacionBean.Guardar()}"></h:commandButton>
                                 <br></br>
                                 <br></br>
                                 <br></br>

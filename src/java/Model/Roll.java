@@ -17,14 +17,14 @@ public class Roll {
     public String descripcion;
     public int estado;
     public int idUsuRegistra;
-    public Date feRegistra;
+    public String feRegistra;
     public int idUsuEdita;
-    public Date feEdita;
+    public String feEdita;
 
     public Roll() {
     }
 
-    public Roll(int id, String descripcion, int estado, int idUsuRegistra, Date feRegistra, int idUsuEdita, Date feEdita) {
+    public Roll(int id, String descripcion, int estado, int idUsuRegistra, String feRegistra, int idUsuEdita, String feEdita) {
         this.id = id;
         this.descripcion = descripcion;
         this.estado = estado;
@@ -66,11 +66,11 @@ public class Roll {
         this.idUsuRegistra = idUsuRegistra;
     }
 
-    public Date getFeRegistra() {
+    public String getFeRegistra() {
         return feRegistra;
     }
 
-    public void setFeRegistra(Date feRegistra) {
+    public void setFeRegistra(String feRegistra) {
         this.feRegistra = feRegistra;
     }
 
@@ -82,11 +82,11 @@ public class Roll {
         this.idUsuEdita = idUsuEdita;
     }
 
-    public Date getFeEdita() {
+    public String getFeEdita() {
         return feEdita;
     }
 
-    public void setFeEdita(Date feEdita) {
+    public void setFeEdita(String feEdita) {
         this.feEdita = feEdita;
     }
     

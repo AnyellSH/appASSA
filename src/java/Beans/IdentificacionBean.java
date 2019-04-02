@@ -39,6 +39,7 @@ public class IdentificacionBean implements Serializable {
     String identificacion;
     int estado;
     Tipo_Identificacion tipoIden;
+    
     String tipoDes;
     int idUsuReg;
     String fechaR;
@@ -256,9 +257,9 @@ public class IdentificacionBean implements Serializable {
             Identificacion obj = new Identificacion(this.getId(), this.getIdentificacion(), this.getEstado(), this.getTipoIden(),
                     this.getIdUsuReg(), this.getDate().format(now), this.getIdUsuEdi(), this.getDate().format(now));
             if (IDB.SeleccionarUno(obj.id) == null) {
-                IDB.Actualizar(obj);
+                IDB.Guardar(obj);               
             } else {
-                IDB.Guardar(obj);
+                 IDB.Actualizar(obj);
             }
             
             this.Limpiar();
