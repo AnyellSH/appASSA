@@ -17,7 +17,7 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css"  href="../css2/owl.carousel.css"></link>
         <link rel="stylesheet" type="text/css"  href="../css2/responsive.css"></link>
         <link rel="stylesheet" type="text/css"  href="../css2/style.css"></link>
-        <title>Mantenimiento de Correo</title>
+        <title>Mantenimiento de persona</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
      <h:body>
@@ -64,5 +64,224 @@ and open the template in the editor.
         <!-- TERMINA EL HEADER -->
         <br></br>
         <br></br>
-     </h:body>
+        
+        
+        <!-- COMIENZA SEC SOLICITUDES -->
+        <section id="abt_sec">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs12 ">
+                        <div class="title_sec">
+                            <h1>Personas</h1>
+
+                        </div>
+
+
+                        <h:form enctype="multipart/form-data">
+
+                            <!--================ INICIA AREA DE CREACION DEL PRODUCTO =================-->
+                            <div style="width: 90%"> 
+                                <p style="font-size: 1.2em">Ingresar Personas</p>
+                                <br></br>
+                                <br></br>
+                                <h:outputLabel value="Codigo: "></h:outputLabel>
+                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" ></h:inputText>
+                                <br></br>
+                                <h:outputLabel value="Nombre: "></h:outputLabel>
+                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" ></h:inputText>
+                                <br></br>
+                                <h:outputLabel value="Primer apellido: "></h:outputLabel>
+                                <h:inputText style="margin-left: 2%; width: 40%; margin-bottom: 2%" ></h:inputText>
+                                <br></br>
+                                <h:outputLabel value="Segundo apellido: "></h:outputLabel>
+                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" ></h:inputText>
+                                <br></br>
+                                <h:outputLabel value="Contraseña: "></h:outputLabel>
+                                <h:inputSecret style="margin-left: 4%; margin-bottom: 2%" ></h:inputSecret>
+                                <br></br>
+                               
+
+                               
+                              
+                                <!--<h:commandButton value="Agregar Archivo" action=""></h:commandButton>-->
+                                <h:outputLabel ></h:outputLabel>
+                                <br></br>
+                                <h:commandButton value="Actualizar" action="#{productosBean.actualizaDatos()}"></h:commandButton>
+                                <h:commandButton value="CREAR" action="#{productosBean.agregarProducto()}"></h:commandButton>
+                                <br></br>
+                                <br></br>
+                                <br></br>
+
+                            </div>
+                            <br></br>
+                            <br></br>
+                            
+                            <h2>Productos Activos </h2>
+                            <div class="datagrid">
+                                <h:dataTable var="producc" style="text-align: center">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Codigo"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText ></h:outputText>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Primer apellido"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText ></h:outputText>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Segundo apellido"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText ></h:outputText>
+                                    </h:column>
+
+                                    
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Editar Persona" ></h:outputText>
+                                        </f:facet>
+                                        <h:commandButton value="Editar" ></h:commandButton>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Eliminar Persona"></h:outputText>
+                                        </f:facet>
+                                        <h:commandButton value="Eliminar"  ></h:commandButton>
+                                    </h:column>
+                                </h:dataTable>
+                            </div> 
+                            <br></br>
+                            <br></br>
+                            <h2>Productos Inactivos </h2>
+                            <div class="datagrid">
+                                <h:dataTable  var="invativos" style="text-align: center">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Codigo"></h:outputText>
+                                        </f:facet>
+                                        <h:outputText ></h:outputText>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header" >
+                                            <h:outputText value="Nombre" ></h:outputText>
+                                        </f:facet>
+                                        <h:outputText ></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header" >
+                                            <h:outputText value="Primer apellido" ></h:outputText>
+                                        </f:facet>
+                                        <h:outputText ></h:outputText>
+                                    </h:column>
+                                     <h:column>
+                                        <f:facet name="header" >
+                                            <h:outputText value="Segundo apellido" ></h:outputText>
+                                        </f:facet>
+                                        <h:outputText ></h:outputText>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Restableces Persona"></h:outputText>
+                                        </f:facet>
+                                        <h:commandButton value="Restablecer" ></h:commandButton>
+                                    </h:column>
+                                </h:dataTable>
+                            </div> 
+                            
+                        </h:form>
+
+                    </div>				
+                </div>
+            </div>
+        </section>
+        <!-- TERMINA SEC SOLICITUDES -->
+        <!--EMPIEZA FOOTER -->
+        <footer id="ft_sec">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <ul class="copy_right">
+                            <li>&#169;ASSA 2019</li>
+                        </ul>					
+                    </div>	
+                </div>
+            </div>
+        </footer>
+        <!-- FINALIZA FOOTER -->
+
+        <!-- AREA DE SCRIPTS -->
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="../JS/vendor/jquery-1.11.2.min.js"></script>
+
+        <script src="../JS/isotope.pkgd.min.js"></script>
+        <script src="../JS/bootstrap.min.js"></script>
+        <script src="../JS/jquery-ui.js"></script>
+        <script src="../JS/appear.js"></script>
+        <script src="../JS/jquery.counterup.min.js"></script>
+        <script src="../JS/waypoints.min.js"></script>
+        <script src="../JS/owl.carousel.min.js"></script>
+        <script src="../JS/showHide.js"></script>
+        <script src="../JS/jquery.nicescroll.min.js"></script>
+        <script src="../JS/jquery.easing.min.js"></script>
+        <script src="../JS/scrolling-nav.js"></script>
+        <script src="../JS/plugins.js"></script>
+        <script src="../JS/main.js"></script>
+        <script src="showHide.js" type="text/javascript"></script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+
+                $('.show_hide').showHide({
+                    speed: 1000, // speed you want the toggle to happen	
+                    easing: '', // the animation effect you want. Remove this line if you dont want an effect and if you haven't included jQuery UI
+                    changeText: 1, // if you dont want the button text to change, set this to 0
+                    showText: 'View', // the button text to show when a div is closed
+                    hideText: 'Close' // the button text to show when a div is open
+
+                });
+
+
+            });
+
+        </script>
+        <script>
+            jQuery(document).ready(function ($) {
+                $('.counter').counterUp({
+                    delay: 10,
+                    time: 1000
+                });
+            });
+        </script>
+
+        <script>
+
+            //Hide Overflow of Body on DOM Ready //
+            $(document).ready(function () {
+                $("body").css("overflow", "hidden");
+            });
+
+            // Show Overflow of Body when Everything has Loaded 
+            $(window).load(function () {
+                $("body").css("overflow", "visible");
+                var nice = $('html').niceScroll({
+                    cursorborder: "5",
+                    cursorcolor: "#00AFF0",
+                    cursorwidth: "3px",
+                    boxzoom: true,
+                    autohidemode: true
+                });
+
+            });
+        </script>
+        <!--TERMINA AREA DE SCRIPTS -->
+    </h:body>
 </html>
