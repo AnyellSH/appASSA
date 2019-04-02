@@ -40,6 +40,10 @@ public class Persona {
         this.feEdita = feEdita;
     }
 
+    Persona(int idPro, String nombre, String p_Apellido, String s_Apellido, String contrasenna, int idIdentificacion, int usuarioI, String fechaI, int usuarioM, String fechaM) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getId() {
         return id;
     }
