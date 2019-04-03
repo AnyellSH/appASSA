@@ -103,10 +103,10 @@ public class PersonaDB {
     }
       
      
-      public Producto SeleccionarUno(int idProduct) throws SNMPExceptions, SQLException {
+      public Persona SeleccionarUno(int idProduct) throws SNMPExceptions, SQLException {
 
         String select = "";
-        Producto obj = null;
+        Persona obj = null;
         try {
 
             select = "Select * from Producto where Id =" + idProduct;
@@ -125,7 +125,7 @@ public class PersonaDB {
                 int usuarioM = rsPA.getInt("Id_Usu_Edita");
                 String fechaM = rsPA.getString("Fecha_Edita");
 
-                obj= new Persona (idPro, nombre, p_Apellido, s_Apellido, contrasenna, idIdentificacion, usuarioI, fechaI, usuarioM, fechaM,);
+                obj= new Persona (idPro, nombre, p_Apellido, s_Apellido, contrasenna, idIdentificacion, usuarioI, fechaI, usuarioM, fechaM);
 
             }
             rsPA.close();
