@@ -20,14 +20,14 @@ public class Persona {
     public String contrasenna;
     public int idIdentificacion;
     public int idUsuRegistra;
-    public Date feRegistra;
+    public String feRegistra;
     public int idUsuEdita;
-    public Date feEdita;
+    public String feEdita;
 
     public Persona() {
     }
 
-    public Persona(int id, String nombre, String pApellido, String sApellido, String contrasenna, int idIdentificacion, int idUsuRegistra, Date feRegistra, int idUsuEdita, Date feEdita) {
+    public Persona(int id, String nombre, String pApellido, String sApellido, String contrasenna, int idIdentificacion, int idUsuRegistra, String feRegistra, int idUsuEdita, String feEdita) {
         this.id = id;
         this.nombre = nombre;
         this.pApellido = pApellido;
@@ -40,9 +40,7 @@ public class Persona {
         this.feEdita = feEdita;
     }
 
-    Persona(int idPro, String nombre, String p_Apellido, String s_Apellido, String contrasenna, int idIdentificacion, int usuarioI, String fechaI, int usuarioM, String fechaM) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     public int getId() {
         return id;
@@ -100,11 +98,11 @@ public class Persona {
         this.idUsuRegistra = idUsuRegistra;
     }
 
-    public Date getFeRegistra() {
+    public String getFeRegistra() {
         return feRegistra;
     }
 
-    public void setFeRegistra(Date feRegistra) {
+    public void setFeRegistra(String feRegistra) {
         this.feRegistra = feRegistra;
     }
 
@@ -116,11 +114,11 @@ public class Persona {
         this.idUsuEdita = idUsuEdita;
     }
 
-    public Date getFeEdita() {
+    public String getFeEdita() {
         return feEdita;
     }
 
-    public void setFeEdita(Date feEdita) {
+    public void setFeEdita(String feEdita) {
         this.feEdita = feEdita;
     }
     

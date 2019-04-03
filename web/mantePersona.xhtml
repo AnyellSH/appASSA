@@ -20,7 +20,7 @@ and open the template in the editor.
         <title>Mantenimiento de persona</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-     <h:body>
+    <h:body>
         <div id="loader-wrapper">
             <div class="logo"></div>
             <div id="loader">
@@ -64,8 +64,8 @@ and open the template in the editor.
         <!-- TERMINA EL HEADER -->
         <br></br>
         <br></br>
-        
-        
+
+
         <!-- COMIENZA SEC SOLICITUDES -->
         <section id="abt_sec">
             <div class="container">
@@ -84,6 +84,15 @@ and open the template in the editor.
                                 <p style="font-size: 1.2em">Ingresar Personas</p>
                                 <br></br>
                                 <br></br>
+                                <h:outputLabel value="Tipo de Identificacion: "></h:outputLabel>
+                                <h:selectOneMenu style="margin-left: 4%; margin-bottom: 2%"  onchange="submit()">
+                                    <f:selectItems value="#{identificacionBean.listatip_Identi}" itemDisabled="Descripcion"></f:selectItems>
+                                </h:selectOneMenu>
+                                <br></br>
+                                <h:outputLabel value="Identificacion: "></h:outputLabel>
+                                <h:inputText style="margin-left: 4%; margin-bottom: 2%" value="#{identificacionBean.identificacion}" ></h:inputText>
+                                <br></br>
+
                                 <h:outputLabel value="Codigo: "></h:outputLabel>
                                 <h:inputText style="margin-left: 4%; margin-bottom: 2%" ></h:inputText>
                                 <br></br>
@@ -99,10 +108,10 @@ and open the template in the editor.
                                 <h:outputLabel value="Contraseña: "></h:outputLabel>
                                 <h:inputSecret style="margin-left: 4%; margin-bottom: 2%" ></h:inputSecret>
                                 <br></br>
-                               
 
-                               
-                              
+
+
+
                                 <!--<h:commandButton value="Agregar Archivo" action=""></h:commandButton>-->
                                 <h:outputLabel ></h:outputLabel>
                                 <br></br>
@@ -115,7 +124,7 @@ and open the template in the editor.
                             </div>
                             <br></br>
                             <br></br>
-                            
+
                             <h2>Productos Activos </h2>
                             <div class="datagrid">
                                 <h:dataTable var="producc" style="text-align: center">
@@ -140,7 +149,7 @@ and open the template in the editor.
                                         <h:outputText ></h:outputText>
                                     </h:column>
 
-                                    
+
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Editar Persona" ></h:outputText>
@@ -179,7 +188,7 @@ and open the template in the editor.
                                         </f:facet>
                                         <h:outputText ></h:outputText>
                                     </h:column>
-                                     <h:column>
+                                    <h:column>
                                         <f:facet name="header" >
                                             <h:outputText value="Segundo apellido" ></h:outputText>
                                         </f:facet>
@@ -193,7 +202,7 @@ and open the template in the editor.
                                     </h:column>
                                 </h:dataTable>
                             </div> 
-                            
+
                         </h:form>
 
                     </div>				
@@ -237,20 +246,20 @@ and open the template in the editor.
         <script src="showHide.js" type="text/javascript"></script>
         <script type="text/javascript">
 
-            $(document).ready(function () {
+                                    $(document).ready(function () {
 
 
-                $('.show_hide').showHide({
-                    speed: 1000, // speed you want the toggle to happen	
-                    easing: '', // the animation effect you want. Remove this line if you dont want an effect and if you haven't included jQuery UI
-                    changeText: 1, // if you dont want the button text to change, set this to 0
-                    showText: 'View', // the button text to show when a div is closed
-                    hideText: 'Close' // the button text to show when a div is open
+                                        $('.show_hide').showHide({
+                                            speed: 1000, // speed you want the toggle to happen	
+                                            easing: '', // the animation effect you want. Remove this line if you dont want an effect and if you haven't included jQuery UI
+                                            changeText: 1, // if you dont want the button text to change, set this to 0
+                                            showText: 'View', // the button text to show when a div is closed
+                                            hideText: 'Close' // the button text to show when a div is open
 
-                });
+                                        });
 
 
-            });
+                                    });
 
         </script>
         <script>
