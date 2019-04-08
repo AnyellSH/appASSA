@@ -288,4 +288,5 @@ public class PersonaBean implements Serializable {
        this.setIdUsuEdita(per.getIdUsuEdita());
        this.setFeEdita(per.getFeEdita());
     }
+      
 }
