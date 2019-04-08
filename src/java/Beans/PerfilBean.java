@@ -167,7 +167,6 @@ public class PerfilBean implements Serializable {
         this.date = date;
     }
 
-
     public void Limpiar() {
         this.setId(0);
         this.setDescripcion("");
@@ -180,13 +179,13 @@ public class PerfilBean implements Serializable {
 
     /*GUARDAR EN LA BD*/
     public void Guardar() throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
-       
-        if (id<=-1) {
+
+        if (id <= -1) {
             this.setErrorid("Codigo incorrecto");
-        }else{
+        } else {
             this.setErrorid("");
         }
-            
+
         try {
             if (estadoV) {
                 estado = 1;
@@ -196,9 +195,9 @@ public class PerfilBean implements Serializable {
                 }
             }
 
-            Perfil obj = new Perfil(this.getId(), this.getDescripcion(), this.getEstado(), 
-                    this.getIdUsuReg(),this.getDate().format(now), this.getIdUsuEdi(), this.getDate().format(now));
-            if (PDB.SeleccionarUno(obj.id)==null) {
+            Perfil obj = new Perfil(this.getId(), this.getDescripcion(), this.getEstado(),
+                    this.getIdUsuReg(), this.getDate().format(now), this.getIdUsuEdi(), this.getDate().format(now));
+            if (PDB.SeleccionarUno(obj.id) == null) {
                 PDB.Guardar(obj);
             } else {
                 PDB.Actualizar(obj);
@@ -212,7 +211,7 @@ public class PerfilBean implements Serializable {
     }
 
     /*ACTUALIZAR EN LA BD*/
-    public void Actualizar(){
+    public void Actualizar() {
         try {
             if (estadoV) {
                 estado = 1;
@@ -231,27 +230,27 @@ public class PerfilBean implements Serializable {
             e.toString();
         }
     }
-    
+
     /*TABLA DE PERFILES ACTIVOS*/
-    public void Activo(int idp , int estp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
-        
+    public void Activo(int idp, int estp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+
         PDB.Desactivar(idp, estp);
         this.getListaActivos();
         this.getListaInactivos();
-        
+
     }
-    
-     /*TABLA DE PERFILES INACTIVOS*/
-    public void Inactivo(int idp , int estp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException{
-        
+
+    /*TABLA DE PERFILES INACTIVOS*/
+    public void Inactivo(int idp, int estp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
+
         PDB.Desactivar(idp, estp);
         this.getListaActivos();
         this.getListaInactivos();
-        
+
     }
-    
+
     /*ASIGNAR VALORES*/
-    public void asignaValores(Perfil obj){
+    public void asignaValores(Perfil obj) {
         this.setId(obj.getId());
         this.setDescripcion(obj.getDescripcion());
     }
