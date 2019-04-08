@@ -25,14 +25,15 @@ public class PersonaDB {
         try {
             strSQL = "INSERT INTO [dbo].[Persona]([Id],[Nombre],"
                     + "[P_Apellido],[S_Apellido],[Contrasnna],[ID_IDENTIFICACION],"
-                    + "[Id_Usu_Registra],[Fecha_Registra],[Id_Usu_Edita],[Fecha_Edita])"
+                    + "[Id_Usu_Registra],[Fecha_Registra],[Id_Usu_Edita],[Fecha_Edita],[Estado]"
                     + "VALUES(" + obj.getId() + ",'" + obj.getNombre() + "',"
                     + obj.getpApellido() + "," + obj.getsApellido() + ",'"
                     + obj.getContrasenna() + "'," + obj.getIdIdentificacion() + ","
                     + obj.getIdUsuRegistra() + ",'"
                     + obj.getFeRegistra() + "',"
                     + obj.getIdUsuEdita()+ ",'"
-                    + obj.getFeEdita()+ "')";
+                    + obj.getFeEdita()+ ",'"
+                    + obj.getEstado()+"')";
 
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL);
@@ -62,7 +63,7 @@ public class PersonaDB {
                     = "SELECT Id,Nombre,P_Apellido,S_Apellido,"
                     + "Contrasenna,ID_IDENTIFICACION,"
                     + "Id_Usu_Registra, Fecha_Registra,"
-                    + "Id_Usu_Edita,Fecha_Edita "
+                    + "Id_Usu_Edita,Fecha_Edita, Estado"
                     + "from dbo.Persona";
 
             //Se ejecuta la sentencia SQL
@@ -81,8 +82,9 @@ public class PersonaDB {
                 String fechaI = rsPA.getString("Fecha_Registra");
                 int usuarioM = rsPA.getInt("Id_Usu_Edita");
                 String fechaM = rsPA.getString("Fecha_Edita");
+                int Estado = rsPA.getInt("Estado");
 
-                Persona per = new Persona(idPro, nombre, p_Apellido, s_Apellido, contrasenna, idIdentificacion, usuarioI, fechaI, usuarioM, fechaM);
+                Persona per = new Persona(idPro, nombre, p_Apellido, s_Apellido, contrasenna, idIdentificacion, usuarioI, fechaI, usuarioM, fechaM, Estado);
                 
                     lista.add(per);
                 
@@ -124,8 +126,9 @@ public class PersonaDB {
                 String fechaI = rsPA.getString("Fecha_Registra");
                 int usuarioM = rsPA.getInt("Id_Usu_Edita");
                 String fechaM = rsPA.getString("Fecha_Edita");
+                int Estado = rsPA.getInt("Estado");
 
-                obj= new Persona (idPro, nombre, p_Apellido, s_Apellido, contrasenna, idIdentificacion, usuarioI, fechaI, usuarioM, fechaM);
+                obj= new Persona (idPro, nombre, p_Apellido, s_Apellido, contrasenna, idIdentificacion, usuarioI, fechaI, usuarioM, fechaM, Estado);
 
             }
             rsPA.close();
@@ -142,7 +145,7 @@ public class PersonaDB {
     }
        public void Desactivar(int idPer, int estp) throws SNMPExceptions, SQLException, NamingException, ClassNotFoundException {
         String desactivar = "";
-        desactivar = "UPDATE Producto SET Estado=" + estp + " Where id = " + idPer;
+        desactivar = "UPDATE Persona SET Estado=" + estp + " Where id = " + idPer;
         accesoDatos.ejecutaSQL(desactivar);
 
     }
@@ -152,12 +155,13 @@ public class PersonaDB {
         String update = "";
         try {
             update = "UPDATE Persona SET Nombre = '" + obj.getNombre()
-                    + "',P_Apellido= " + obj.getpApellido()
-                    + ",S_Apellido = " + obj.getsApellido()
-                    + ",contrasenna '" + obj.getContrasenna()
+                    + "',P_Apellido=' " + obj.getpApellido()
+                    + "',S_Apellido = '" + obj.getsApellido()
+                    + "',contrasenna '" + obj.getContrasenna()
                     + "',Id_Usu_Edita = " + obj.getIdUsuEdita()
                    
-                    + "'where Id = " + obj.getId();
+                   
+                    + " where Id = " + obj.getId();
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(update);
 

@@ -24,10 +24,19 @@ public class Persona {
     public int idUsuEdita;
     public String feEdita;
 
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+    public int estado;
+
     public Persona() {
     }
 
-    public Persona(int id, String nombre, String pApellido, String sApellido, String contrasenna, int idIdentificacion, int idUsuRegistra, String feRegistra, int idUsuEdita, String feEdita) {
+    public Persona(int id, String nombre, String pApellido, String sApellido, String contrasenna, int idIdentificacion, int idUsuRegistra, String feRegistra, int idUsuEdita, String feEdita, int estado) {
         this.id = id;
         this.nombre = nombre;
         this.pApellido = pApellido;
@@ -38,6 +47,7 @@ public class Persona {
         this.feRegistra = feRegistra;
         this.idUsuEdita = idUsuEdita;
         this.feEdita = feEdita;
+        this.estado = estado;
     }
 
     
