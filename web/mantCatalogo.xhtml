@@ -66,6 +66,9 @@ and open the template in the editor.
         <!-- TERMINA EL HEADER -->
         <br></br>
         <br></br>
+        <!---botones-->
+        
+        
 
         <!-- COMIENZA SEC SOLICITUDES -->
         <section id="abt_sec">
@@ -218,7 +221,6 @@ and open the template in the editor.
 
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
         <script src="../JS/vendor/jquery-1.11.2.min.js"></script>
-
         <script src="../JS/isotope.pkgd.min.js"></script>
         <script src="../JS/bootstrap.min.js"></script>
         <script src="../JS/jquery-ui.js"></script>
@@ -233,53 +235,9 @@ and open the template in the editor.
         <script src="../JS/plugins.js"></script>
         <script src="../JS/main.js"></script>
         <script src="showHide.js" type="text/javascript"></script>
-        <script type="text/javascript">
+        <script type="text/javascript"></script>
 
-            $(document).ready(function () {
-
-
-                $('.show_hide').showHide({
-                    speed: 1000, // speed you want the toggle to happen	
-                    easing: '', // the animation effect you want. Remove this line if you dont want an effect and if you haven't included jQuery UI
-                    changeText: 1, // if you dont want the button text to change, set this to 0
-                    showText: 'View', // the button text to show when a div is closed
-                    hideText: 'Close' // the button text to show when a div is open
-
-                });
-
-
-            });
-
-        </script>
-        <script>
-            jQuery(document).ready(function ($) {
-                $('.counter').counterUp({
-                    delay: 10,
-                    time: 1000
-                });
-            });
-        </script>
-
-        <script>
-
-            //Hide Overflow of Body on DOM Ready //
-            $(document).ready(function () {
-                $("body").css("overflow", "hidden");
-            });
-
-            // Show Overflow of Body when Everything has Loaded 
-            $(window).load(function () {
-                $("body").css("overflow", "visible");
-                var nice = $('html').niceScroll({
-                    cursorborder: "5",
-                    cursorcolor: "#00AFF0",
-                    cursorwidth: "3px",
-                    boxzoom: true,
-                    autohidemode: true
-                });
-
-            });
-        </script>
+          
         <!--TERMINA AREA DE SCRIPTS -->
     </h:body>
 </html>
